@@ -3,14 +3,13 @@
 
 {% block 'conteudo' %}
 <div class="container">
-    {% if messages %}
-        {% for message in messages %}
-        <br>
-            <section class="alert {{message.tags}}">
-                {{message}}
-            </section>
-        {% endfor %}
-    {% endif %}    
+  {% if messages %}
+  {% for message in messages %}
+      <section class="alert {{ message.tags }}">
+          {{ message }}
+      </section>
+  {% endfor %}
+{% endif %}
     {{usuario_dados}}
 
 <h2>Cadastrar Personagem</h2>
@@ -39,7 +38,7 @@
 <br>
   <label>História:</label><br>
   <textarea class="pergunta" name="historia"></textarea><br>
-  <button  type="submit" class="botao_criar_personagem">Cadastrar</button>
+  <button  type="submit" class="botao">Cadastrar</button>
 </form>
 {% endblock %}
 {% comment %} 

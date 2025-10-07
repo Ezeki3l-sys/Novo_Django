@@ -62,7 +62,7 @@
 
   function aplicarTemaDraconico() {
     document.documentElement.style.setProperty('--cor-fundo', '#5a3546');
-    document.documentElement.style.setProperty('--cor-texto', 'rgb(193, 130, 130)');
+    document.documentElement.style.setProperty('--cor-texto', '#ffffff');
     document.documentElement.style.setProperty('--cor-destaque', '#fc6747');
     localStorage.setItem("tema", "Draconico");
   }

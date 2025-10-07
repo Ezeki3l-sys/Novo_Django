@@ -14,9 +14,4 @@ urlpatterns = [
     path('excluir_campanha/<int:id>/', views.excluir_campanha, name='excluir_campanha'),
     path('editar_campanha/<int:id>/', views.editar_campanha, name='editar_campanha'),
     path('detalhes_campanha/<int:id>/', views.detalhes_campanha, name='detalhes_campanha'),
-    
-    path('mestres/',views.mestres, name='mestres'),
-    path('mestres/detalhes',views.detalhes, name='detalhes'),
-    path('mestres/sessoes',views.sessoes, name='sessoes'),
-    path('jogadores/',views.jogadores, name='jogadores'),
 ]

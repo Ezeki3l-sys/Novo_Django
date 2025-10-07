@@ -39,7 +39,7 @@
 <p><strong>Raça:</strong> {{personagem.raca}}</p>
     <p><strong>Classe:</strong> {{personagem.classe}}</p>
     <p><strong>História:</strong> {{personagem.historia}}</p>
-    <div>
+    <div style="display: flex; justify-content:center ; align-items: center;">
         <div class="manuseio">
             <button onclick="progressao(10,'-')">-10</button>
             <button onclick="progressao(5,'-')">-5</button>
@@ -52,7 +52,24 @@
             <button onclick="progressao(5,'+')">+5</button>
             <button onclick="progressao(10,'+')">+10</button>
         </div>
+        <div id="container">
+            <h1>Rolagem de dados</h1>
+            <div id="dados">
+                <img onclick="Rolar(4)" src="{% static 'img/d4.png' %}" width="50px" alt="">
+                <img onclick="Rolar(6)" src="{% static 'img/d6.png' %}" width="50px" alt="">
+                <img onclick="Rolar(8)" src="{% static 'img/d8.png' %}" width="50px" alt="">
+                <img onclick="Rolar(10)" src="{% static 'img/d10.svg' %}" width="50px" alt="">
+                <img onclick="Rolar(12)" src="{% static 'img/d12.png' %}" width="50px" alt="">
+                <img onclick="Rolar(20)" src="{% static 'img/d20.png' %}" width="50px" alt="">
+            </div>
+            
+            <label for="numero_de_dados">N. de dados</label>
+            <input type="number" id="numero_de_dados" value="1" min="1" max="40"></input>
+            <div id="resultado_do_dado"></div>
+            <div id="soma_dos_dados"></div>
+        </div>
     </div>
+    
 <a href="{% url 'editar_personagem' personagem.id %}" class="btn btn-warning">Editar</a>
 <a href="{% url 'deletar_personagem' personagem.id %}" class="btn btn-danger">Deletar</a>
 <a href="{% url 'meus_personagens' %}" class="btn btn-secondary">Voltar</a>
@@ -80,6 +97,28 @@
         progresso.setAttribute('style','width:'+ x +'%')
         tag_div.innerText = porcent
         
+        
+    }
+    function Rolar(dado){
+        const numDeDados = document.getElementById('numero_de_dados').value;
+        const resultado = document.getElementById('resultado_do_dado');
+        const somaDosDados = document.getElementById('soma_dos_dados');
+        let somagem = 0
+        const valores = [];
+        if(numDeDados>40){
+            resultado.textContent = "O limite de dados é 40."
+            
+        }
+        else{
+            for(let i = 0; i < numDeDados; i++){
+                const valor = Math.floor(Math.random() * dado) +1;
+                valores.push(valor);
+                somagem += valores[i];
+            }
+
+            resultado.textContent = `Dado(s): ${valores.join(', ')}`
+            somaDosDados.textContent =  `Soma: ${somagem}` 
+        }
         
     }
 </script>

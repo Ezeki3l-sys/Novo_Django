@@ -222,89 +222,41 @@ i.bi{
  .geral{
     display: flex;
  }
+ #botoes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+ }
  .campanha{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
+    margin: 0;
+    
  }
  .campanha img{
     border: 3px solid var(--cor-destaque);
     border-radius: 40px ;
     width: 400px;
 }
-
+#container{
+    color: var(--cor-texto);
+    border: var(--cor-destaque) solid 2px ;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+#container img{
+    background-color: var(--cor-destaque);
+    border-radius: 10px;
+    margin: 0;
+}
  /* Minhas Campanhas */
 
 
-/* --- Aqui, nós mexemos com a página de campanhas ---*/
-/* 
-.anunciante_campanhas{
-    text-align: center;
-    text-decoration: underline;
-    color: var(--cor-destaque);
-}
-.campanhas{
-    display: flex;
-    flex-direction: column;
-    text-decoration: underline var(--cor-destaque);
-}
-.campanhas .caixa_da_campanha{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--cor-fundo);
-    color: var(--cor-destaque);
-    border-style: solid;
-    border-radius: 20px;
-    margin: 20px;
-    padding: 30px;
-}
-.campanhas .caixa_da_campanha button{
-    width: 70px;
-    text-decoration: underline white
-} */
 
-/* --- Aqui temos a campanha individual, onde mostramos o título, a descrição, o ínico, o fim, e os players que participam da campanha tudo na mesma página --- */
-
-/* Imagem da Campanha */
-
-.borda_imagem{
-    border: 3px solid var(--cor-destaque);
-}
-.class_img_da_campanha{
-    text-align: center;
-    margin-top: 50px;
-}
-.borda_img_da_campanha{
-    border: 3px solid var(--cor-destaque);
-}
-
-@media only screen and (min-width: 600px) {
-    .borda_img_da_campanha{
-        max-width:50%;
-    }
-  }
-
-
-/* Informações Gerais da Campanha */
-
-.class_nome_da_campanha{
-    font-size: 40px;
-    color: var(--cor-destaque);
-}
-.class_desc_da_campanha{
-    color: var(--cor-texto);
-}
-.inicio_fim{
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 75px;
-}
-/* --- Seção das Sessões (quase rimou) --- */
 
 .cenas_descricao{
     display: flex;
@@ -337,76 +289,22 @@ i.bi{
     align-items: center; 
     gap: 10px; 
 }
-/* Tabela de Players */
 
-.class_anuncio_de_players{
-    font-size: 30px;
-    font-weight: bold;
-    color: var(--cor-destaque);
-}
-
-.tabela_de_personagens_campanha{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    border-collapse: collapse;
-
-}
-.cor_colunas{
-    color: var(--cor-destaque)
-}
-th, td {
-    word-wrap: break-word;
-    white-space: normal;
-    vertical-align: middle;
-    font-size: 1.1em;
-    text-align: center;
-    border-collapse: collapse;
-    border: 2px solid;
-    border-color: var(--cor-destaque);
-}
-.caixas_de_escolha_players{
-    padding-top: 7px;
-    border: solid 5px;
-    border-radius: 5px;
-    border-color: var(--cor-destaque);
-    justify-content: center;
-    color: var(--cor-texto);
-    margin-bottom: 20px;
-}
-.chops{
-    display: flex;
-    justify-content: center;
-}
 /* --- Lista de Jogadores e Personagens --- */
-.butoes{
-    display: flex;
-    justify-content: center;
-}
-.botao-tema {
-    background-color: var(--cor-destaque);
-    color: white;
-    border: solid  var(--cor-destaque) ;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 20px;
-    border-radius: 20px;
-}
-.botao_criar_personagem{
+
+.botao{
     color: var(--cor-texto);
     background-color: var(--cor-destaque);
     border-color: var(--cor-destaque);
     border-radius: 5px;
+    font-weight: bold;
+    padding: 5px 15px;
+    margin: 10px;
+    cursor: pointer;
     border-style: none;
     --bs-btn-hover-bg: var(--cor-destaque);
 }
-.margin_botao_deletar{
-    margin-right: 30px;
-}
-.margin_botao_editar{
-    margin-left: 30px;
-}
+
 /* --- Classes Gerais e Funcionalidades Adicionais --- */
 
 .pagina_atual{

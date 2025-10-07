@@ -2,16 +2,13 @@
 {% load static %}
 
 {% block 'conteudo' %}
-<div class="container">
-    {% if messages %}
-        {% for message in messages %}
-        <br>
-            <section class="alert {{message.tags}}">
-                {{message}}
-            </section>
-        {% endfor %}
-    {% endif %}    
-    {{usuario_dados}}
+{% if messages %}
+{% for message in messages %}
+    <section class="alert {{ message.tags }}">
+        {{ message }}
+    </section>
+{% endfor %}
+{% endif %}
 
 <h2>Cadastrar campanha</h2>
 <form class="formulario" method="POST" enctype="multipart/form-data">
@@ -29,6 +26,6 @@
   <input class="pergunta" type="date" name="data_fim"><br>
 <br>
 
-  <button  type="submit" class="botao_criar_personagem">Cadastrar Campanha</button>
+  <button  type="submit" class="botao">Cadastrar Campanha</button>
 </form>
 {% endblock %}

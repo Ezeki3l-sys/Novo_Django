@@ -6,14 +6,42 @@
 
 {% block 'conteudo' %}
 <div class="geral">
-    <div class="campanha">
-        <h2>{{campanha.nome_campanha}}</h2>
-        <img src="{{campanha.imagem_de_capa.url}}" alt="foto_de_imagem" width="400"><br>
-        <p>Data de início:{{campanha.data_inicio}}</p>
-        <p>Data de fim: {{campanha.data_fim}}</p>
-        <p>Descrição:{{campanha.descricao}}</p>
+    <div style="width: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;" >
+       <div style="display: flex; justify-content: center; align-items: center;">
+        <div id="botoes">
+            <a href="{% url 'editar_campanha' campanha.id %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'excluir_campanha' campanha.id %}" class="btn btn-danger">Deletar</a>
+            <a href="{% url 'minhas_campanhas' %}" class="btn btn-secondary">Voltar</a>
+        </div>
+        <div class="campanha">
+            
+            <h2>{{campanha.nome_campanha}}</h2>
+            <img src="{{campanha.imagem_de_capa.url}}" alt="foto_de_imagem" width="400"><br>
+            <p>Data de início:{{campanha.data_inicio}}</p>
+            <p>Data de fim: {{campanha.data_fim}}</p>
+            <p>Descrição:{{campanha.descricao}}</p>
+            
+        </div>
+       </div>
         
+        <div id="container">
+            <h1>Rolagem de dados</h1>
+            <div id="dados">
+                <img onclick="Rolar(4)" src="{% static 'img/d4.png' %}" width="50px" alt="">
+                <img onclick="Rolar(6)" src="{% static 'img/d6.png' %}" width="50px" alt="">
+                <img onclick="Rolar(8)" src="{% static 'img/d8.png' %}" width="50px" alt="">
+                <img onclick="Rolar(10)" src="{% static 'img/d10.svg' %}" width="50px" alt="">
+                <img onclick="Rolar(12)" src="{% static 'img/d12.png' %}" width="50px" alt="">
+                <img onclick="Rolar(20)" src="{% static 'img/d20.png' %}" width="50px" alt="">
+            </div>
+            
+            <label for="numero_de_dados">N. de dados</label>
+            <input type="number" id="numero_de_dados" value="1" min="1" max="40"></input>
+            <div id="resultado_do_dado"></div>
+            <div id="soma_dos_dados"></div>
+        </div>
     </div>
+    
     <div class="borda_sessoes">
     <div class="sessoes">
         <button class="botao-tema" onclick="mudar_sessao(-1)">&lt;</button>
@@ -50,78 +78,32 @@
 </div>
 
 
-    
-<a href="{% url 'editar_campanha' campanha.id %}" class="btn btn-warning">Editar</a>
-<a href="{% url 'excluir_campanha' campanha.id %}" class="btn btn-danger">Deletar</a>
-<a href="{% url 'minhas_campanhas' %}" class="btn btn-secondary">Voltar</a>
 <script>
-    const campanha =  JSON.parse(localStorage.getItem("campanha_selecionada"));
-    const campanha_escolhida = campanha.nome.toLowerCase()
-    const campanha_ = campanha_escolhida.replace(" ", "_")
-    let dados = JSON.parse(localStorage.getItem(`sessoes_rpg_${campanha_}`)) || [];
-    let sessao_atual = 0;
-    let cena_selecionada = 0;
 
-    function salvar_dados() {
-        localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(dados));
-    }
-
-    function atualizar_interface() {
-        document.getElementById('titulo_sessao').textContent = `SESSÃO ${sessao_atual}`;
-        const lista_cenas = document.getElementById('id_cenas');
-        lista_cenas.innerHTML = '';
-
-        if (!dados[sessao_atual]) dados[sessao_atual] = [];
-        dados[sessao_atual].forEach((cena, index) => {
-            const p = document.createElement('div');
-            p.className = 'borda_cenas_descricao';
-            p.textContent = `Cena ${index + 1}`;
-            p.onclick = () => selecionar_cena(index);
-            lista_cenas.appendChild(p);
-        });
-
-        selecionar_cena(cena_selecionada);
-    }
-
-    function criar_sessao() {
-        if (dados.length >= 50) return alert('Limite de 50 sessões atingido!');
-        dados.push([]);
-        sessao_atual = dados.length - 1;
-        cena_selecionada = 0;
-        salvar_dados();
-        atualizar_interface();
-    }
-
-    function criar_cena() {
-        if (dados[sessao_atual].length >= 15) return alert('Limite de 15 cenas atingido!');
-        dados[sessao_atual].push("");
-        cena_selecionada = dados[sessao_atual].length - 1;
-        salvar_dados();
-        atualizar_interface();
-    }                                                                                                                                                                                                                      3
-
-    function selecionar_cena(index) {
-        cena_selecionada = index;
-        document.getElementById('cena_atual_titulo').textContent = `Cena ${index + 1}`;
-        document.getElementById('descricao_cena').value = dados[sessao_atual][index] || '';
-    }
-
-    function mudar_sessao(direcao) {
-        const nova_sessao = sessao_atual + direcao;
-        if (nova_sessao >= 0 && nova_sessao < dados.length) {
-            sessao_atual = nova_sessao;
-            cena_selecionada = 0;
-            atualizar_interface();
+        
+    function Rolar(dado){
+        const numDeDados = document.getElementById('numero_de_dados').value;
+        const resultado = document.getElementById('resultado_do_dado');
+        const somaDosDados = document.getElementById('soma_dos_dados');
+        let somagem = 0
+        const valores = [];
+        if(numDeDados>40){
+            resultado.textContent = "O limite de dados é 40."
+            
         }
+        else{
+            for(let i = 0; i < numDeDados; i++){
+                const valor = Math.floor(Math.random() * dado) +1;
+                valores.push(valor);
+                somagem += valores[i];
+            }
+
+            resultado.textContent = `Dado(s): ${valores.join(', ')}`
+            somaDosDados.textContent =  `Soma: ${somagem}` 
+        }
+        
     }
-
-    atualizar_interface();
-    document.getElementById("descricao_cena").addEventListener("input", () => {
-    dados[sessao_atual][cena_selecionada] = document.getElementById("descricao_cena").value;
-    salvar_dados();
-    });
-
-    document.getElementById("id_criar_cena").addEventListener("click", criar_cena);
 </script>
+
 
 {% endblock %}

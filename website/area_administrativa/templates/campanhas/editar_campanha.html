@@ -2,26 +2,25 @@
 {% block 'title' %}Editar Campanha{% endblock %}
 {% block 'conteudo' %}
 <h2>Editar Campanha</h2>
-    {% if messages %}
-        {% for message in messages %}
-        <br>
-            <section class="alert {{message.tags}}">
-                {{message}}
-            </section>
-        {% endfor %}
-    {% endif %}    
-<form method="POST" enctype="multipart/form-data">
+{% if messages %}
+{% for message in messages %}
+    <section class="alert {{ message.tags }}">
+        {{ message }}
+    </section>
+{% endfor %}
+{% endif %}    
+<form method="POST" class="formulario" enctype="multipart/form-data">
   {% csrf_token %}
   <label>Nome:</label><br>
-  <input type="text" name="nome_campanha" value="{{campanha.nome_campanha}}" required><br>
+  <input type="text" name="nome_campanha" class="pergunta" value="{{campanha.nome_campanha}}" required><br>
   <label>Imagem:</label><br>
-  <input type="file" name="imagem_de_capa"><br>
+  <input type="file" class="pergunta" name="imagem_de_capa"><br>
   <label>Data de Inicio:</label><br>
-  <input type="date" name="data_inicio" value="{{campanha.data_inicio}}"><br>
+  <input type="date" class="pergunta" name="data_inicio" value="{{campanha.data_inicio}}"><br>
   <label>Data do Inicio:</label><br>
-  <input type="date" name="data_fim" value="{{campanha.data_fim}}"><br>
+  <input type="date" class="pergunta" name="data_fim" value="{{campanha.data_fim}}"><br>
   <label>Descrição:</label><br>
-  <textarea name="descricao">{{campanha.descricao}}</textarea><br>
+  <textarea class="pergunta" name="descricao">{{campanha.descricao}}</textarea><br>
   <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
 {% endblock %}

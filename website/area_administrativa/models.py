@@ -47,16 +47,16 @@ class Campanha(models.Model):
         def __str__(self):
              return self.nome_campanha
         
-class Campanha(models.Model):
+# class Campanha(models.Model):
 
 
-        class Meta:
-             verbose_name_plural = 'Sesspes'
-             verbose_name = 'Campanha'
-             ordering = ('nome_campanha',)
+#         class Meta:
+#              verbose_name_plural = 'Sesspes'
+#              verbose_name = 'Campanha'
+#              ordering = ('nome_campanha',)
 
-        def __str__(self):
-             return self.nome_campanha
+#         def __str__(self):
+#              return self.nome_campanha
     
 # , upload_to='slideshow/'
 

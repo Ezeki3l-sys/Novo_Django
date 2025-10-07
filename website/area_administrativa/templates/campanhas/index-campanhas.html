@@ -8,11 +8,11 @@
 <div>
   <form method="post"> {% csrf_token %}
     <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_personagem" value="{{pesquisa}}">
-    <input class="botao_criar_personagem" type="submit" value="PESQUISAR">
+    <input class="botao" type="submit" value="PESQUISAR">
   </form>
   </div>
 <div class="container text-center lista_personagens">
-  <div class="row">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     {% for c in campanhas %}      
     <div class="col">
       <div class="card" style="width: 18rem;">
@@ -28,6 +28,6 @@
     </div>
     {% endfor%}
   </div>
-  <a href="{% url 'cadastrar_campanha' %}" class="botao_criar_personagem">Cadastrar nova campanha</a>
+  <a href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
 </div>
 {% endblock %}
