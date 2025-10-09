@@ -8,15 +8,16 @@
 <div class="geral">
     <div style="width: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;" >
        <div style="display: flex; justify-content: center; align-items: center;">
-        <div id="botoes">
-            <a href="{% url 'editar_campanha' campanha.id %}" class="btn btn-warning">Editar</a>
-            <a href="{% url 'excluir_campanha' campanha.id %}" class="btn btn-danger">Deletar</a>
-            <a href="{% url 'minhas_campanhas' %}" class="btn btn-secondary">Voltar</a>
-        </div>
         <div class="campanha">
-            
             <h2>{{campanha.nome_campanha}}</h2>
-            <img src="{{campanha.imagem_de_capa.url}}" alt="foto_de_imagem" width="400"><br>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div style="display: flex; flex-direction: column;">
+                    <a href="{% url 'editar_campanha' campanha.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'excluir_campanha' campanha.id %}" class="btn btn-danger">Deletar</a>
+                    <a href="{% url 'minhas_campanhas' %}" class="btn btn-secondary">Voltar</a>
+                </div>
+                <div><img src="{{campanha.imagem_de_capa.url}}" alt="foto_de_imagem" width="400"><br></div>
+            </div>
             <p>Data de início:{{campanha.data_inicio}}</p>
             <p>Data de fim: {{campanha.data_fim}}</p>
             <p>Descrição:{{campanha.descricao}}</p>
@@ -44,19 +45,19 @@
     
     <div class="borda_sessoes">
     <div class="sessoes">
-        <button class="botao-tema" onclick="mudar_sessao(-1)">&lt;</button>
+        <button class="botao" onclick="mudar_sessao(-1)">&lt;</button>
         <h2 id="titulo_sessao" class="class_nome_da_campanha">SESSÃO 0</h2>
-        <button class="botao-tema" onclick="mudar_sessao(1)">&gt;</button>
+        <button class="botao" onclick="mudar_sessao(1)">&gt;</button>
     </div>
     <div class="sessoes">
-        <button class="botao-tema" onclick="criar_sessao()">Criar Sessão</button>
+        <button class="botao" onclick="criar_sessao()">Criar Sessão</button>
     </div>
     
     <div>
         <article class="cenas_descricao">
             <section class="gordura_da_cena">
                 <h3 class="letra_grande">CENAS</h3>
-                <button class="botao-tema" id="id_criar_cena">CRIAR CENA</button><br><br>
+                <button class="botao" id="id_criar_cena">CRIAR CENA</button><br><br>
                 <div id="id_cenas">
         </div>
         </section>

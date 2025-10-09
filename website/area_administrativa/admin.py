@@ -13,3 +13,5 @@ admin.site.register(Classe)
 
 admin.site.register(Campanha)
 
+
+

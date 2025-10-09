@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import constants
-from .models import Personagem, Classe, Campanha
+from .models import Personagem, Classe, Campanha, Usuario
 
 # Create your views here.
 # def home(request):
@@ -16,6 +16,19 @@ def home(request):
     meus_personagens = Personagem.objects.filter(usuario=request.user).order_by('nome_personagem')
     minhas_campanhas = Campanha.objects.filter(mestre=request.user).order_by('nome_campanha')
     return render(request, "index-area-restrita.html", {'personagens': meus_personagens,'campanhas': minhas_campanhas})
+
+@login_required
+def editar_perfil(request, id):
+    usuario = get_object_or_404(Usuario, id=id)
+    if request.method == 'POST':
+        usuario.username = request.POST.get('username')
+        if request.FILES.get('avatar'):
+            usuario.avatar = request.FILES.get('avatar')
+        usuario.bio = request.POST.get('bio')
+        usuario.save()
+        messages.success(request, f'Usuario {usuario.username} atualizado com sucesso!')
+        return redirect('home_area_restrita')
+    return render(request, 'editar_perfil.html', {'usuario': usuario})
 
 
 @login_required

@@ -8,6 +8,7 @@
             {% if user.avatar %}
                 <div class="bordinha"><img src="{{ user.avatar.url }}" alt="Avatar"></div>
                 
+                
             {% else %}
                 <p>Sem avatar.</p>
             {% endif %}
@@ -15,6 +16,7 @@
             <p>Bio: {{ user.bio }}</p>
             <p>Nascido em: {{ user.data_nascimento }}</p>
             <p>Email: {{ user.email }}</p>
+        
         </div>
         <div class="coluna">
             <div>
