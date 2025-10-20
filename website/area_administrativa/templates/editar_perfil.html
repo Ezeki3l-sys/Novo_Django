@@ -1,3 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'head'%}
+  <style>
+    #preview {
+      margin-top: 20px;
+      max-width: 300px;
+      border-radius: 8px;
+      /* display: none; */
+    }
+</style>
+{% endblock%}
+{% block 'conteudo'%}
 <div class="container">
     {% if messages %}
         {% for message in messages %}
@@ -7,7 +20,7 @@
             </section>
         {% endfor %}
     {% endif %}    
-    {{usuario_dados}}
+    
 <h2>Registrar Usuário</h2>
 {% if erro %}<p style="color:red;">{{ erro }}</p>{% endif %}
   <form  method="post" class="formulario"  enctype="multipart/form-data"> {% csrf_token %}
@@ -15,10 +28,43 @@
     <label>Username:</label><br>
     <input type="text" class="pergunta" name="username" id="username" placeholder="Username" value="{{usuario_dados.username}}" required><br>
     <label>Avatar:</label><br>
-    <input type="file" class="pergunta" name="avatar" id="avatar" placeholder="..."><br>
+    <!-- {% if usuario_dados.avatar %}
+      <img src="{{usuario_dados.avatar.url}}" width="150px" >
+    {% endif %} -->
+    <br/>
+    <label>Carregar imagem:</label><br>
+    <input type="file" class="pergunta" name="avatar" id="avatar" accept="image/*" placeholder="..."><br>
+    <label>Imagem de perfil:</label><br>
+   
+    <img id="preview" src="{% if usuario_dados.avatar %}{{ usuario_dados.avatar.url }}{% else %}{% static 'img/default-avatar.jpg' %}{% endif %}" alt="Avatar do usuário" /><br>
+
     <label>Eh mestre?:</label><br>
     <input class="form-check-input" type="checkbox" name="eh_mestre"  id="myCheckboxMestre" {% if usuario_dados.mestre %}checked{% endif %} value="mestre"><br>
-    <textarea  class="pergunta" placeholder="Biografia..." name="bio" id="bio" cols="30" rows="10"></textarea><br>
+    <textarea  class="pergunta" placeholder="Biografia..." name="bio" id="bio" cols="30" rows="10">
+         {% if usuario_dados.bio %}
+          {{usuario_dados.bio}}
+        {% endif %}
+      </textarea>
+        <br>
     <button class="botao-tema" type="submit">Salvar Contato</button> 
   </form>
 </div>
+<script>
+  const fileInput = document.getElementById('avatar');
+  const preview = document.getElementById('preview');
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      preview.src = imageUrl;
+      preview.style.display = 'block';
+
+      // libera o objeto URL quando não for mais necessário
+      preview.onload = () => URL.revokeObjectURL(preview.src);
+    } else {
+      preview.style.display = 'none';
+    }
+  });
+</script>
+{% endblock%}

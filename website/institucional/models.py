@@ -10,6 +10,7 @@ class Slideshow(models.Model):
     titulo = models.CharField(verbose_name ="titulo",max_length=50, blank=True, null=True,)
     alt = models.CharField(verbose_name ="Alternative",max_length=100, blank=True, null=True,)
     descricao = models.TextField("Descrição",  blank=True, null= True)
+    ativo = models.BooleanField("Imagem ativa?", default=True)
 
     class Meta:
         verbose_name_plural = 'SlideShow'

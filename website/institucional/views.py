@@ -12,7 +12,7 @@ from django.db import IntegrityError
 
 # Create your views here.
 def home(request):
-    slideshows = Slideshow.objects.all()
+    slideshows = Slideshow.objects.filter(ativo=True)
     return render(request,'index.html',{'slideshows':slideshows})   
 
 # def cadastro(request):

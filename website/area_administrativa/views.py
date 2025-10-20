@@ -20,6 +20,8 @@ def home(request):
 @login_required
 def editar_perfil(request, id):
     usuario = get_object_or_404(Usuario, id=id)
+
+    print(usuario)
     if request.method == 'POST':
         usuario.username = request.POST.get('username')
         if request.FILES.get('avatar'):
@@ -28,7 +30,8 @@ def editar_perfil(request, id):
         usuario.save()
         messages.success(request, f'Usuario {usuario.username} atualizado com sucesso!')
         return redirect('home_area_restrita')
-    return render(request, 'editar_perfil.html', {'usuario': usuario})
+    
+    return render(request, 'editar_perfil.html', {'usuario_dados': usuario})
 
 
 @login_required

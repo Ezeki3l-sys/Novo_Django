@@ -16,7 +16,8 @@
             <p>Bio: {{ user.bio }}</p>
             <p>Nascido em: {{ user.data_nascimento }}</p>
             <p>Email: {{ user.email }}</p>
-        
+        <a href="
+        {% url 'editar_perfil' user.id%}">EDITAR</a>
         </div>
         <div class="coluna">
             <div>
