@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from website.institucional.models import Slideshow
+from website.area_administrativa.models import Campanha, Usuario
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -14,6 +16,21 @@ from django.db import IntegrityError
 def home(request):
     slideshows = Slideshow.objects.filter(ativo=True)
     return render(request,'index.html',{'slideshows':slideshows})   
+
+def explorar_campanhas(request):
+    todas_campanhas = Campanha.objects.all().order_by('data_inicio', 'nome_campanha')
+
+    if request.method == 'GET':
+        return render(request, 'explorar_campanhas.html', {'campanhas': todas_campanhas, 'pesquisa': ''})
+
+    pesquisar = request.POST.get('pesquisar_campanha', '').strip()
+    
+    if pesquisar:
+        todas_campanhas = todas_campanhas.filter(
+            Q(nome_campanha__icontains=pesquisar) | Q(mestre__first_name__icontains=pesquisar) | Q(mestre__username__icontains=pesquisar)
+        )
+
+    return render(request, 'explorar_campanhas.html', {'campanhas': todas_campanhas, 'pesquisa': pesquisar})
 
 # def cadastro(request):
 #     messages.add_message(request, constants.SUCCESS, 'Página carregada com sucesso')

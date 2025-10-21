@@ -157,6 +157,16 @@ def editar_campanha(request, id):
     return render(request, 'campanhas/editar_campanha.html', {'campanha': campanha})
 
 
+
+@login_required
+def participar_campanha(request, id):
+    campanha = get_object_or_404(Campanha, id=id)
+    if request.method == 'POST':
+        campanha.delete()
+        messages.success(request, f'Pedido da campanha {campanha.nome_campanha} enviado com sucesso!')
+        return redirect('minhas_campanhas')
+    return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha})
+
 def mestres(request):
     return render(request, 'mestres/index.html')
 

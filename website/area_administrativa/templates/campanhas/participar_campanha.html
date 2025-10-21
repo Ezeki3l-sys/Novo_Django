@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block 'title' %}Confirmar Exclusão{% endblock %}
+{% block 'conteudo' %}
+<h2>Deseja realmente participar da campanha {{campanha.nome_campanha}}?</h2>
+<p>O Mestre será notificado que você deseja participar e ele fará ou não aprovação</p>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success">Sim, desejo partcipar</button>
+  <a href="{% url 'explorar_campanhas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

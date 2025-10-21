@@ -189,6 +189,7 @@ i.bi{
 
 .formulario{
     text-align: center;
+    align-items: center;
     border: 3px solid var(--cor-destaque);
     border-radius: 40px ;
 }

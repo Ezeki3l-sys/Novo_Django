@@ -46,18 +46,47 @@ class Campanha(models.Model):
 
         def __str__(self):
              return self.nome_campanha
-        
-# class Campanha(models.Model):
+class PedidoParticipacaoCampanha(models.Model):
+    PENDENTE = "P"
+    APROVADA = "A"
+    REPROVADA = "R"
 
+    SITUACAO_CHOICES = (
+        (PENDENTE, 'Pendente'),
+        (APROVADA, 'Aprovada'),
+        (REPROVADA, 'Reprovada'),
+    )        
 
-#         class Meta:
-#              verbose_name_plural = 'Sesspes'
-#              verbose_name = 'Campanha'
-#              ordering = ('nome_campanha',)
+    usuario_solicitante = models.ForeignKey(
+        Usuario,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+        related_name='pedidos_solicitados'
+    )
+    mestre = models.ForeignKey(
+        Usuario,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+        related_name='pedidos_como_mestre'
+    )
+    campanha = models.ForeignKey(
+        Campanha,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True
+    )
+    mensagem = models.TextField(verbose_name="mensagem", max_length=100, blank=True, null=True)
+    data_solicitacao = models.DateField(auto_now_add=True)
+    data_aprovacao = models.DateField(blank=True, null=True)
+    data_fim = models.DateField(blank=True, null=True)
+    status = models.CharField(max_length=1, choices=SITUACAO_CHOICES)
 
-#         def __str__(self):
-#              return self.nome_campanha
-    
-# , upload_to='slideshow/'
+    class Meta:
+        verbose_name = 'Pedido de participação da campanha'
+        verbose_name_plural = 'Pedidos de participação da campanha'
+        ordering = ('-data_solicitacao',)
 
-
+    def __str__(self):
+        return f"Pedido #{self.id} - {self.usuario_solicitante}"
