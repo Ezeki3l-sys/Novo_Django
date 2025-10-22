@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import constants
-from .models import Personagem, Classe, Campanha, Usuario
-
+from .models import Personagem, Classe, Campanha, Usuario, PedidoParticipacaoCampanha
+from datetime import datetime
 # Create your views here.
 # def home(request):
 #     return HttpResponse(f"<h1>Hello</h1>")
@@ -161,12 +161,42 @@ def editar_campanha(request, id):
 @login_required
 def participar_campanha(request, id):
     campanha = get_object_or_404(Campanha, id=id)
+    #mestre = Usuario.objects.get(username=campanha.mestre)
     if request.method == 'POST':
-        campanha.delete()
+        solicitacao = PedidoParticipacaoCampanha.objects.create(
+            usuario_solicitante=request.user,
+            mestre = campanha.mestre,
+            mensagem=request.POST.get('mensagem'),
+            campanha = campanha
+        )
+        solicitacao.save()
         messages.success(request, f'Pedido da campanha {campanha.nome_campanha} enviado com sucesso!')
         return redirect('minhas_campanhas')
     return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha})
 
+def solicitacoes(request):
+    solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="P")
+    print(solicitacoes)
+    return render(request, 'mestre/solicitacoes.html', {'solicitacoes':solicitacoes})
+
+def aprovar(request,id):
+    solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
+    solicitacao.status='A'
+    solicitacao.data_aprovacao = datetime.now()
+    print("APROVADO")
+    solicitacao.save()
+
+    return redirect('solicitacoes')
+
+
+def reprovar(request,id):
+    solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
+    solicitacao.status='R'
+    solicitacao.data_aprovacao = datetime.now()
+    print("REPROVADO")
+    solicitacao.save()
+    return redirect('solicitacoes')
+    
 def mestres(request):
     return render(request, 'mestres/index.html')
 

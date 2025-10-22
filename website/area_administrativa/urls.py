@@ -18,4 +18,10 @@ urlpatterns = [
 
 
     path('participar-campanha/<int:id>/', views.participar_campanha, name='participar_campanha'),
+    path('mestre/solicitacoes', views.solicitacoes, name='solicitacoes'), 
+
+    path('mestre/solicitacoes/aprovar/<int:id>/', views.aprovar, name='aprovar'), 
+    path('mestre/solicitacoes/reprovar/<int:id>/', views.aprovar, name='reprovar'), 
+
 ]
+

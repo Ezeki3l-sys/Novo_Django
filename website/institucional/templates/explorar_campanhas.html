@@ -19,7 +19,9 @@
               <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
               <div class="card-body ">
                   <h5 class="card-title">{{c.nome_campanha}}</h5>
-                  <p class="card-text">{{c.descricao}}</p>
+          
+                    <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
+      
                   <p class="card-text">{{c.mestre}}</p>
                   <a href="{% url 'participar_campanha' c.id %}" class="btn btn-primary">Participar da campanha</a> 
               </div>

@@ -3,8 +3,10 @@
 {% block 'conteudo' %}
 <h2>Deseja realmente participar da campanha {{campanha.nome_campanha}}?</h2>
 <p>O Mestre será notificado que você deseja participar e ele fará ou não aprovação</p>
-<form method="POST">
+<form method="POST" class="formulario">
   {% csrf_token %}
+  <label>Deixe uma mensagem carinhosa para convencer o Mestre</label></br>
+  <textarea class="pergunta" id="mensagem" name="mensagem" rows="4" cols="50"></textarea>
   <button type="submit" class="btn btn-success">Sim, desejo partcipar</button>
   <a href="{% url 'explorar_campanhas' %}" class="btn btn-secondary">Cancelar</a>
 </form>

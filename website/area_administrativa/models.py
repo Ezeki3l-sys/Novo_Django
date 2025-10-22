@@ -1,7 +1,6 @@
 from django.db import models
 from website.usuarios.models import Usuario
  
-
 # Create your models here.
 class Classe(models.Model):
     nome_classe = models.CharField(verbose_name ="classe",max_length=100, blank=True, null=True,)
@@ -80,8 +79,7 @@ class PedidoParticipacaoCampanha(models.Model):
     mensagem = models.TextField(verbose_name="mensagem", max_length=100, blank=True, null=True)
     data_solicitacao = models.DateField(auto_now_add=True)
     data_aprovacao = models.DateField(blank=True, null=True)
-    data_fim = models.DateField(blank=True, null=True)
-    status = models.CharField(max_length=1, choices=SITUACAO_CHOICES)
+    status = models.CharField(max_length=1, choices=SITUACAO_CHOICES, default=PENDENTE)
 
     class Meta:
         verbose_name = 'Pedido de participação da campanha'

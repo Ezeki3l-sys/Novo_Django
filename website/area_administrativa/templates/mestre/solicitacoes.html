@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block 'title' %}Gerenciar solicitações{% endblock %}
+{% block 'conteudo' %}
+<table class="table table-striped">
+    <thead> 
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Solicitante</th>
+        <th scope="col">Mensagem</th>
+        <th scope="col">Data solicitacao</th>
+        <th scope="col">Aprovar?</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for s in solicitacoes%}
+      <tr class="solicitacao-{{s.id}}">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{s.usuario_solicitante.username}}</td>
+        <td>{{s.mensagem}}</td>
+        <td>{{s.data_solicitacao}}</td>
+        <td>
+            <a href="{% url 'aprovar' s.id  %}" class="btn btn-success">Aprovar</a>
+            <a href="{% url 'reprovar' s.id %}" class="btn btn-danger">Reprovar</a>
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

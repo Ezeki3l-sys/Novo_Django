@@ -19,8 +19,11 @@
             <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
             <div class="card-body ">
                 <h5 class="card-title">{{c.nome_campanha}}</h5>
-                <p class="card-text">{{c.descricao}}</p>
-                <a href="{% url 'detalhes_campanha' c.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
+                
+                <p class="card-text">
+                  <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{c.nome_campanha}}" data-bs-content="{{c.descricao}}">Descrição</button>
+                </p>
+                <a href="{% url 'detalhes_campanha' c.id %}" class="btn btn-primary">Jogar</a>
                 <a href="{% url 'editar_campanha' c.id %}" class="btn btn-warning">Editar</a>
                 <a href="{% url 'excluir_campanha' c.id %}" class="btn btn-danger">Deletar</a>
             </div>
@@ -30,4 +33,8 @@
   </div>
   <a href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
 </div>
+<script>
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 {% endblock %}

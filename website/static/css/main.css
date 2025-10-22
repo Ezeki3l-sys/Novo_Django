@@ -122,7 +122,20 @@ ul{
 
 
  /* Parte da área restrita */
-
+ .card img{
+    width: 286px;
+    height: 171px;
+ }
+ #dados img:hover {
+    filter: brightness(1.5);
+    border: 2px solid rgb(255, 255, 255);
+    
+}
+#dados img:active {
+    filter: brightness(2.5);
+    border: 5px solid rgb(255, 255, 255);
+    
+}
  .perfil{
     display: flex;
     justify-content: space-evenly;
@@ -333,6 +346,7 @@ p{
 footer{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 20px;
     justify-content: space-evenly;
     border-top: 5px var(--cor-destaque) solid;
 }
