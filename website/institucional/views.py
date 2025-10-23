@@ -18,7 +18,7 @@ def home(request):
     return render(request,'index.html',{'slideshows':slideshows})   
 
 def explorar_campanhas(request):
-    todas_campanhas = Campanha.objects.all().order_by('data_inicio', 'nome_campanha')
+    todas_campanhas = Campanha.objects.all().order_by('data_inicio', 'nome_campanha').exclude(mestre__username=request.user)
 
     if request.method == 'GET':
         return render(request, 'explorar_campanhas.html', {'campanhas': todas_campanhas, 'pesquisa': ''})

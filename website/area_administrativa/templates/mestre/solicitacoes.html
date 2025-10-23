@@ -19,8 +19,19 @@
         <td>{{s.mensagem}}</td>
         <td>{{s.data_solicitacao}}</td>
         <td>
-            <a href="{% url 'aprovar' s.id  %}" class="btn btn-success">Aprovar</a>
-            <a href="{% url 'reprovar' s.id %}" class="btn btn-danger">Reprovar</a>
+          <form method="POST" action="{% url 'aprovar' s.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="decisao" value="A">
+            <button type="submit" class="btn btn-success">Aprovar</button>
+          </form>
+          
+          <form method="POST" action="{% url 'reprovar' s.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="decisao" value="R">
+            <button type="submit" class="btn btn-danger">Reprovar</button>
+          </form>
+          
+            
         </td>
        </tr>
     {% endfor %}

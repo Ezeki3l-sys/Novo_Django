@@ -179,24 +179,22 @@ def solicitacoes(request):
     print(solicitacoes)
     return render(request, 'mestre/solicitacoes.html', {'solicitacoes':solicitacoes})
 
-def aprovar(request,id):
-    solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
-    solicitacao.status='A'
-    solicitacao.data_aprovacao = datetime.now()
-    print("APROVADO")
-    solicitacao.save()
+
+def decisao(request, id):
+    if request.method == 'POST':
+        d = request.POST.get('decisao')  # Sem vírgula!
+        print("Decisão:", d)
+
+        solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
+        solicitacao.status = d
+        solicitacao.data_aprovacao = datetime.now()
+        solicitacao.save()
+
+        print("Solicitação atualizada com sucesso")
 
     return redirect('solicitacoes')
 
 
-def reprovar(request,id):
-    solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
-    solicitacao.status='R'
-    solicitacao.data_aprovacao = datetime.now()
-    print("REPROVADO")
-    solicitacao.save()
-    return redirect('solicitacoes')
-    
 def mestres(request):
     return render(request, 'mestres/index.html')
 
