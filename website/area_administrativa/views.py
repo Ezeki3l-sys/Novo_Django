@@ -106,8 +106,10 @@ def minhas_campanhas(request):
 
 @login_required
 def detalhes_campanha(request, id):
+    personagens = Personagem.objects.all
+    jogadores = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="A")
     campanha = get_object_or_404(Campanha, id=id)
-    return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha})
+    return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'personagens': personagens})
 
 @login_required
 def cadastrar_campanha(request):
@@ -182,15 +184,12 @@ def solicitacoes(request):
 
 def decisao(request, id):
     if request.method == 'POST':
-        d = request.POST.get('decisao')  # Sem vírgula!
-        print("Decisão:", d)
+        d = request.POST.get('decisao')  
 
         solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
         solicitacao.status = d
         solicitacao.data_aprovacao = datetime.now()
         solicitacao.save()
-
-        print("Solicitação atualizada com sucesso")
 
     return redirect('solicitacoes')
 

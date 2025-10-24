@@ -22,9 +22,9 @@
                 <p class="card-text">
                   <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{p.nome_personagem}}" data-bs-content="{{p.historia}}">História</button>
                 </p>
-                <a href="{% url 'detalhes_personagem' p.id %}" class="btn btn-primary">Jogar</a>
-                <a href="{% url 'editar_personagem' p.id %}" class="btn btn-warning">Editar</a>
-                <a href="{% url 'deletar_personagem' p.id %}" class="btn btn-danger">Deletar</a>
+                <a href="{% url 'detalhes_personagem' p.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
+                <a href="{% url 'editar_personagem' p.id %}" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                <a href="{% url 'deletar_personagem' p.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
             </div>
         </div>
     </div>

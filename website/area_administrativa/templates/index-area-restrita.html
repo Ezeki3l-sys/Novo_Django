@@ -13,7 +13,6 @@
                 <p>Sem avatar.</p>
             {% endif %}
             <p>Bem-vindo, {{ user.username }}!</p>
-            <p>Bio: {{ user.bio }}</p>
             <p>Nascido em: {{ user.data_nascimento }}</p>
             <p>Email: {{ user.email }}</p>
         <a href="
@@ -21,7 +20,7 @@
         </div>
         <div class="coluna">
             <div>
-                <textarea name="cunserva" id="corovenha" cols="80" rows="10"></textarea>
+                <textarea name="cunserva" id="corovenha" cols="80" rows="10">{{ user.bio }}</textarea>
             </div>
             <div class="ascoisadele">
                 <div>
@@ -36,7 +35,7 @@
                     {% for p in personagens %}      
                     <h2>{{p.nome_personagem}}</h2>
                     {% endfor%}
-                    <a href="{% url 'meus_personagens' %}"><i class="bi bi-plus-circle"></i></a>
+                    <a href="{% url 'meus_personagens' %}"><i class="bi bi-plus-circle mais" ></i></a>
                     
                 </div>
             </div>

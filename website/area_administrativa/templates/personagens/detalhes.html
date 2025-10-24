@@ -34,9 +34,6 @@
     <h2>{{personagem.nome_personagem}}</h2>
     <div style="display: flex; align-items: center; justify-content: center;">
         <div style="display: flex; flex-direction: column;">
-            <a href="{% url 'editar_personagem' personagem.id %}" class="btn btn-warning">Editar</a>
-            <a href="{% url 'deletar_personagem' personagem.id %}" class="btn btn-danger">Deletar</a>
-            <a href="{% url 'meus_personagens' %}" class="btn btn-secondary">Voltar</a>
         </div>
         <div><img src="{{personagem.avatar_personagem.url}}" alt="Avatar" width="200"><br></div>
     </div>
