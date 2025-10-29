@@ -6,6 +6,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Solicitante</th>
+        <th scope="col">Personagem</th>
         <th scope="col">Mensagem</th>
         <th scope="col">Data solicitacao</th>
         <th scope="col">Aprovar?</th>
@@ -16,6 +17,7 @@
       <tr class="solicitacao-{{s.id}}">
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{s.usuario_solicitante.username}}</td>
+        <td>{{s.personagem.nome_personagem}}</td>
         <td>{{s.mensagem}}</td>
         <td>{{s.data_solicitacao}}</td>
         <td>

@@ -106,10 +106,9 @@ def minhas_campanhas(request):
 
 @login_required
 def detalhes_campanha(request, id):
-    personagens = Personagem.objects.all
     jogadores = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="A")
     campanha = get_object_or_404(Campanha, id=id)
-    return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'personagens': personagens})
+    return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores})
 
 @login_required
 def cadastrar_campanha(request):
@@ -163,10 +162,23 @@ def editar_campanha(request, id):
 @login_required
 def participar_campanha(request, id):
     campanha = get_object_or_404(Campanha, id=id)
+    personagens = Personagem.objects.filter(usuario=request.user)
+    print(personagens)
     #mestre = Usuario.objects.get(username=campanha.mestre)
     if request.method == 'POST':
+        personagem_id = request.POST.get('personagem_selecionado')
+        personagem_selecionado = None
+        
+        # Só tenta buscar o personagem se veio algo no POST
+        if personagem_id:
+            try:
+                personagem_selecionado = personagens.get(id=personagem_id)
+            except Personagem.DoesNotExist:
+                personagem_selecionado = None  # Evita erro se o ID for inválid
+
         solicitacao = PedidoParticipacaoCampanha.objects.create(
             usuario_solicitante=request.user,
+            personagem = personagem_selecionado,
             mestre = campanha.mestre,
             mensagem=request.POST.get('mensagem'),
             campanha = campanha
@@ -174,7 +186,7 @@ def participar_campanha(request, id):
         solicitacao.save()
         messages.success(request, f'Pedido da campanha {campanha.nome_campanha} enviado com sucesso!')
         return redirect('minhas_campanhas')
-    return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha})
+    return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha,'personagens':personagens})
 
 def solicitacoes(request):
     solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="P")

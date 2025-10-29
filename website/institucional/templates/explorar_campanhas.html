@@ -23,7 +23,11 @@
                     <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
       
                   <p class="card-text">{{c.mestre}}</p>
-                  <a href="{% url 'participar_campanha' c.id %}" class="btn btn-primary">Participar da campanha</a> 
+                  {%if user.username%}
+                    <a href="{% url 'participar_campanha' c.id %}" class="btn btn-primary">Participar da campanha</a> 
+                  {% else %}
+                  <a href="{% url 'accounts:cadastro' %}" class="btn btn-primary">Cadastre-se para participar da campanha</a> 
+                  {% endif %}
               </div>
           </div>
       </div>

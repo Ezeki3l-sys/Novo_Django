@@ -19,6 +19,7 @@ class Personagem(models.Model):
     avatar_personagem = models.ImageField(verbose_name ="avatar", upload_to='personagens/')
     raca = models.CharField(verbose_name ="raça",max_length=50, blank=True, null=True,)
     classe = models.ForeignKey(Classe, on_delete=models.DO_NOTHING, blank = True, null = True, related_name="personagens" )
+    vida = models.CharField(verbose_name='vida',max_length=5,blank=False,null=False,)
     #classe = models.CharField(verbose_name ="classe",max_length=100, blank=True, null=True,)
     historia = models.TextField(verbose_name ="historia",  blank=True, null= True)
 
@@ -63,6 +64,13 @@ class PedidoParticipacaoCampanha(models.Model):
         null=True,
         related_name='pedidos_solicitados'
     )
+    personagem = models.ForeignKey(
+        Personagem,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+        related_name='personagem_usuario')
+    
     mestre = models.ForeignKey(
         Usuario,
         on_delete=models.DO_NOTHING,

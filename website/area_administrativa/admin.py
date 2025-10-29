@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Personagem, Classe, Campanha, PedidoParticipacaoCampanha
 
 class PersonagemModelAdmin(admin.ModelAdmin):
-    list_display = ['nome_personagem','avatar_personagem','raca','classe',]
+    list_display = ['nome_personagem','usuario','avatar_personagem','raca','classe',]
     search_fields = ('nome_personagem',"raca", "classe")
 
 
