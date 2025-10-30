@@ -19,7 +19,7 @@ class Personagem(models.Model):
     avatar_personagem = models.ImageField(verbose_name ="avatar", upload_to='personagens/')
     raca = models.CharField(verbose_name ="raça",max_length=50, blank=True, null=True,)
     classe = models.ForeignKey(Classe, on_delete=models.DO_NOTHING, blank = True, null = True, related_name="personagens" )
-    vida = models.CharField(verbose_name='vida',max_length=5,blank=False,null=False,)
+    vida = models.PositiveIntegerField(verbose_name='vida',blank=False,null=False, default=10)
     #classe = models.CharField(verbose_name ="classe",max_length=100, blank=True, null=True,)
     historia = models.TextField(verbose_name ="historia",  blank=True, null= True)
 
@@ -46,6 +46,8 @@ class Campanha(models.Model):
 
         def __str__(self):
              return self.nome_campanha
+
+
 class PedidoParticipacaoCampanha(models.Model):
     PENDENTE = "P"
     APROVADA = "A"
@@ -96,3 +98,63 @@ class PedidoParticipacaoCampanha(models.Model):
 
     def __str__(self):
         return f"Pedido #{self.id} - {self.usuario_solicitante}"
+
+
+
+class CampanhaJogador(models.Model):
+    campanha = models.ForeignKey(
+        Campanha,
+        on_delete=models.CASCADE,
+        related_name='jogadores'
+    )
+    personagem = models.ForeignKey(
+        Personagem,
+        on_delete=models.CASCADE,
+        related_name='participacoes'
+    )
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='campanhas_participadas'
+    )
+    vida_atual = models.PositiveIntegerField(default=10)
+    experiencia = models.PositiveIntegerField(default=0)
+    nivel = models.PositiveIntegerField(default=1)
+    status = models.CharField(
+        max_length=20,
+        default='ativo',
+        choices=[
+            ('ativo', 'Ativo'),
+            ('expulso', 'Expulso'),
+            ('morto', 'Morto'),
+        ]
+    )
+
+    class Meta:
+        verbose_name = 'Jogador da Campanha'
+        verbose_name_plural = 'Jogadores da Campanha'
+        unique_together = ('campanha', 'personagem')
+        ordering = ('campanha', 'personagem')
+
+    def __str__(self):
+        return f"{self.personagem} em {self.campanha}"
+
+
+class Jogo(models.Model):
+    campanha = models.ForeignKey(
+        Campanha,
+        on_delete=models.CASCADE,
+        related_name='jogos'
+    )
+    data_inicio = models.DateTimeField(auto_now_add=True)
+    data_fim = models.DateTimeField(blank=True, null=True)
+    ativo = models.BooleanField(default=True)
+    descricao = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Sessão de Jogo'
+        verbose_name_plural = 'Sessões de Jogo'
+        ordering = ('-data_inicio',)
+
+    def __str__(self):
+        return f"Jogo da campanha {self.campanha.nome_campanha} ({'ativo' if self.ativo else 'encerrado'})"

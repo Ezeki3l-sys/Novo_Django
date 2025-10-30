@@ -48,12 +48,12 @@
         <div class="manuseio">
             <button onclick="progressao(10,'-')">-10</button>
             <button onclick="progressao(5,'-')">-5</button>
-            <button onclick="progressao(1,'-')">-</button>
+            <button onclick="progressao(1,'-')">-1</button>
             <div class="barra">
                 <div class="progresso"></div>
-                <div class="numeral">100</div>
+                <div class="numeral">{{personagem.vida}}</div>
             </div>
-            <button onclick="progressao(1,'+')">+</button>
+            <button onclick="progressao(1,'+')">+1</button>
             <button onclick="progressao(5,'+')">+5</button>
             <button onclick="progressao(10,'+')">+10</button>
         </div>
@@ -78,7 +78,7 @@
 
 <script>
     const progresso = document.querySelector('.barra .progresso')
-    let porcent = 220
+    let porcent = {{personagem.vida}}
     let tag_div = document.querySelector('.numeral')
     tag_div.innerText = porcent
     total = porcent

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import constants
-from .models import Personagem, Classe, Campanha, Usuario, PedidoParticipacaoCampanha
+from .models import Personagem, Classe, Campanha, Usuario, PedidoParticipacaoCampanha, CampanhaJogador
 from datetime import datetime
 # Create your views here.
 # def home(request):
@@ -15,7 +15,8 @@ from datetime import datetime
 def home(request):
     meus_personagens = Personagem.objects.filter(usuario=request.user).order_by('nome_personagem')
     minhas_campanhas = Campanha.objects.filter(mestre=request.user).order_by('nome_campanha')
-    return render(request, "index-area-restrita.html", {'personagens': meus_personagens,'campanhas': minhas_campanhas})
+    quantidade_solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status='P').count()
+    return render(request, "index-area-restrita.html", {'personagens': meus_personagens,'campanhas': minhas_campanhas,'quantidade_solicitacoes':quantidade_solicitacoes})
 
 @login_required
 def editar_perfil(request, id):
@@ -102,11 +103,19 @@ def deletar_personagem(request, id):
 @login_required
 def minhas_campanhas(request):
     minhas_campanhas = Campanha.objects.filter(mestre=request.user).order_by('nome_campanha')
-    return render(request, 'campanhas/index-campanhas.html', {'campanhas': minhas_campanhas})
+    '''
+    PRECISA SEPARAR AS CAMPANHAS ONDE O USUARIO E MESTRE DAQUELE JOGO
+    E AS CAMPANHAS ONDE ELE E JOGADOR
+    '''
+    minhas_campanhas_mestre = [] #minhas_campanhas.filter(mestre=request.user)
+    minhas_campanhas_jogador = [] #     minhas_campanhas.exclude(mestre=request.user)
+
+    return render(request, 'campanhas/index-campanhas.html', {'campanhas': minhas_campanhas, 'campanhas_mestre': minhas_campanhas_mestre, 'campanhas_jogador': minhas_campanhas_jogador})
 
 @login_required
 def detalhes_campanha(request, id):
-    jogadores = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="A")
+    jogadores = CampanhaJogador.objects.filter(campanha=id)
+    print(jogadores)
     campanha = get_object_or_404(Campanha, id=id)
     return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores})
 
@@ -189,6 +198,7 @@ def participar_campanha(request, id):
     return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha,'personagens':personagens})
 
 def solicitacoes(request):
+    
     solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="P")
     print(solicitacoes)
     return render(request, 'mestre/solicitacoes.html', {'solicitacoes':solicitacoes})
@@ -196,12 +206,34 @@ def solicitacoes(request):
 
 def decisao(request, id):
     if request.method == 'POST':
-        d = request.POST.get('decisao')  
+        d = request.POST.get('decisao')  # "A" (Aprovada) ou "R" (Reprovada)
 
         solicitacao = PedidoParticipacaoCampanha.objects.get(id=id)
+        # ✅ segurança: só o mestre da campanha pode aprovar/reprovar
+        if solicitacao.mestre != request.user:
+            return redirect('solicitacoes')        
         solicitacao.status = d
         solicitacao.data_aprovacao = datetime.now()
         solicitacao.save()
+        
+        # ✅ Se foi aprovada, cria o registro em CampanhaJogador
+        if d == "A":
+            # Verifica se já existe (evita duplicações)
+            existe = CampanhaJogador.objects.filter(
+                campanha=solicitacao.campanha,
+                personagem=solicitacao.personagem
+            ).exists()
+
+            if not existe:
+                CampanhaJogador.objects.create(
+                    campanha=solicitacao.campanha,
+                    personagem=solicitacao.personagem,
+                    usuario=solicitacao.usuario_solicitante,
+                    vida_atual=solicitacao.personagem.vida,  # vida inicial do personagem
+                    experiencia=0,
+                    nivel=1,
+                    status='ativo'
+                )
 
     return redirect('solicitacoes')
 

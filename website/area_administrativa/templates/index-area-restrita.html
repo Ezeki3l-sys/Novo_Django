@@ -7,35 +7,40 @@
         <div>
             {% if user.avatar %}
                 <div class="bordinha"><img src="{{ user.avatar.url }}" alt="Avatar"></div>
-                
-                
+               
             {% else %}
                 <p>Sem avatar.</p>
             {% endif %}
             <p>Bem-vindo, {{ user.username }}!</p>
             <p>Nascido em: {{ user.data_nascimento }}</p>
             <p>Email: {{ user.email }}</p>
-        <a href="
-        {% url 'editar_perfil' user.id%}">EDITAR</a>
+        <a class="botao" href="{% url 'editar_perfil' user.id%}">EDITAR</a>
+        <a href="{% url 'solicitacoes' %}"  type="button" class="btn btn-primary position-relative" {%if quantidade_solicitacoes == 0 %}style="display: none;"{% endif %}>
+            Solicitações
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{quantidade_solicitacoes}}
+                <span class="visually-hidden">solicitações não lidas</span>
+            </span>
+        </a>
         </div>
         <div class="coluna">
             <div>
-                <textarea name="cunserva" id="corovenha" cols="80" rows="10">{{ user.bio }}</textarea>
+                <textarea style="overflow:hidden;"  name="cunserva" id="corovenha" cols="80" rows="10" readonly disabled>{{ user.bio }}</textarea>
             </div>
             <div class="ascoisadele">
                 <div>
                     <h2>MINHAS CAMPANHAS</h2>
                     {% for c in campanhas %}      
-                    <h2>{{c.nome_campanha}}</h2>
+                        <h2><a href="{% url 'detalhes_campanha' c.id %}">{{c.nome_campanha}}</a></h2>
                     {% endfor%}
-                    <a href="{% url 'minhas_campanhas' %}"><i class="bi bi-plus-circle mais" ></i></a>
+                    <a href="{% url 'cadastrar_campanha' %}"><i class="bi bi-plus-circle mais" ></i></a>
                 </div>
                 <div>
                     <h2>MEUS PERSONAGENS</h2>
                     {% for p in personagens %}      
-                    <h2>{{p.nome_personagem}}</h2>
-                    {% endfor%}
-                    <a href="{% url 'meus_personagens' %}"><i class="bi bi-plus-circle mais" ></i></a>
+                        <h2><a href="{% url 'detalhes_personagem' p.id %}">{{p.nome_personagem}}</a></h2>
+                    {% endfor %}
+                    <a href="{% url 'cadastrar_personagem' %}"><i class="bi bi-plus-circle mais" ></i></a>
                     
                 </div>
             </div>

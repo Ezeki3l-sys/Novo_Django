@@ -7,10 +7,11 @@
             <li><a href="{% url 'meus_personagens' %}">Meus Personagens</a></li>
             <li><a href="{% url 'minhas_campanhas' %}">Minhas Campanhas</a></li>
         {% else %}
-        <li><a href="{% url 'explorar_campanhas' %}">Explore as Campanha</a></li>
             <li><a href="{% url 'accounts:login' %}">Login</a></li>
             <li><a href="{% url 'accounts:cadastro' %}">Cadastro</a></li>
         {% endif %}
+        <li><a href="{% url 'explorar_campanhas' %}">Explore as Campanha</a></li>
+
         {% if user.username %}
             <li><a href="{% url 'home_area_restrita' %}"> {{ user.username }}!</p></a></li>
         {% endif %}
