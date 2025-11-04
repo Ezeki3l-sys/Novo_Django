@@ -4,11 +4,11 @@
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{forloop.counter0}}" class="{% if forloop.first %}active{%endif%}" aria-current="true" aria-label="Slide {{forloop.counter}}"></button>
       {% endfor %}
   </div>
-  <div class="carousel-inner">
+  <div class="carousel-inner carrossel_tamanho">
   {% for img in slideshows %}
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="media/{{img.imagem}}" alt="{{img.alternative}}" title="{{img.titulo}}" class="d-block w-100"  width="20%;" height="850px;" >
-      <div class="carousel-caption d-none d-md-block">
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+     <img style="height: 400px;" src="media/{{img.imagem}}" alt="{{img.alternative}}" title="{{img.titulo}}" class="d-block w-100 carousel-img">
+      <div class="carousel-caption">
         <h5>{{img.titulo}}</h5>
         <p>{{img.descricao}}</p>
       </div>
