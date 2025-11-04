@@ -15,7 +15,7 @@
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     {% for p in personagens %}  
     <div class="col">
-      <div class="card" style="width: 18rem;">
+      <div class="card card_campanhas_personagens" style="width: 18rem;">
             <img src="{{p.avatar_personagem.url}}" class="card-img-top" alt="...">
             <div class="card-body ">
                 <h5 class="card-title">{{p.nome_personagem}}</h5>
@@ -30,7 +30,7 @@
     </div>
     {% endfor%}
   </div>
-  <a href="{% url 'cadastrar_personagem' %}" class="botao">Cadastrar novo personagem</a>
+  <a style="margin-top: 20px;" href="{% url 'cadastrar_personagem' %}" class="botao">Cadastrar novo personagem</a>
 </div>
 
 

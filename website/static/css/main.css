@@ -38,6 +38,12 @@ nav{
     padding-top: 5px;
     padding-bottom: 5px
 }
+@media (max-width: 400px){
+    .titulos_entrada{
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
 .oqueRPG{
     display: flex;
     justify-content: space-evenly;
@@ -219,7 +225,20 @@ i.bi{
     border: 1px solid var(--cor-destaque);
     margin: 10px;
     color: var(--cor-texto);
-    width: 400px;
+    max-width: fit-content;
+}
+.pergunta_img{
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid var(--cor-destaque);
+    margin: 10px;
+    color: var(--cor-texto);
+    width: 370px;
+}
+@media (max-width: 420px){
+    .pergunta_img{
+        width: 300px;
+    }
 }
 .lista_personagens .card-body{
     background-color: var(--cor-destaque);
@@ -382,14 +401,20 @@ a:hover, a:active, .nav-link:hover, .nav-link:active{
     margin-top: 40px;
     margin-bottom: 40px;
 }
-
+.card_campanhas_personagens{
+    display: flex;
+    gap: 30px;
+}
+@media (max-width: 575px){
+    .card_campanhas_personagens{
+        display: flex;
+        justify-content: center;
+    }
+}
 label{
     color: var(--cor-texto);    
 }
 
 span{
     color: var(--cor-texto);
-}
-.so_testando{
-    display: block;
 }

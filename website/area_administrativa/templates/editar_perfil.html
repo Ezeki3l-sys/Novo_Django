@@ -26,7 +26,7 @@
   <form  method="post" class="formulario"  enctype="multipart/form-data"> {% csrf_token %}
     <input type="hidden" name="user" value={{user.username}}>
     <label>Username:</label><br>
-    <input type="text" class="pergunta" name="username" id="username" placeholder="Username" value="{{usuario_dados.username}}" required><br>
+    <input type="text" class="pergunta_img" name="username" id="username" placeholder="Username" value="{{usuario_dados.username}}" required><br>
     <label>Avatar:</label><br>
     <!-- {% if usuario_dados.avatar %}
       <img src="{{usuario_dados.avatar.url}}" width="150px" >
@@ -46,7 +46,7 @@
         {% endif %}
       </textarea>
         <br>
-    <button class="botao-tema" type="submit">Salvar Contato</button> 
+    <button class="botao" type="submit">Salvar Contato</button> 
   </form>
 </div>
 <script>
