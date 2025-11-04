@@ -28,7 +28,17 @@ nav{
 .entrada p{
     font-size: x-large;
     width: 60%;
-    
+}
+.carousel-img {
+    object-fit: cover;
+    height: 80vh;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .carousel-img {
+        height: 50vh;
+    }
 }
 .titulos_entrada{
     margin-left: 40%;
@@ -38,7 +48,7 @@ nav{
     padding-top: 5px;
     padding-bottom: 5px
 }
-@media (max-width: 400px){
+@media (max-width: 1000px){
     .titulos_entrada{
         margin-left: 20%;
         margin-right: 20%;
