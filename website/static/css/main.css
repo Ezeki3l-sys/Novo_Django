@@ -390,3 +390,6 @@ label{
 span{
     color: var(--cor-texto);
 }
+.so_testando{
+    display: block;
+}
