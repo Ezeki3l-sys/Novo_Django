@@ -434,3 +434,6 @@ label{
 span{
     color: var(--cor-texto);
 }
+.ta_bom{
+    display: block;
+}
