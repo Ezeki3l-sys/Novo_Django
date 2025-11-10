@@ -21,7 +21,7 @@
               <div class="card-body ">
                   <h5 class="card-title">{{c.nome_campanha}}</h5>
           
-                    <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
+                  <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
       
                   <p class="card-text">{{c.mestre}}</p>
                   {%if user.username%}
@@ -29,11 +29,17 @@
                   {% else %}
                   <a href="{% url 'accounts:cadastro' %}" class="botao">Cadastre-se para participar da campanha</a> 
                   {% endif %}
-              </div>
+              </div>  
           </div>
       </div>
       {% endfor%}
     </div>
   </div>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+      const popoverList = [...popoverTriggerList].map(el => new bootstrap.Popover(el));
+    });
+  </script>
+    
 {% endblock %}
