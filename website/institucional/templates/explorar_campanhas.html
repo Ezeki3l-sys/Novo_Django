@@ -25,9 +25,9 @@
       
                   <p class="card-text">{{c.mestre}}</p>
                   {%if user.username%}
-                    <a href="{% url 'participar_campanha' c.id %}" class="btn btn-primary">Participar da campanha</a> 
+                    <a href="{% url 'participar_campanha' c.id %}" class="botao">Participar da campanha</a> 
                   {% else %}
-                  <a href="{% url 'accounts:cadastro' %}" class="btn btn-primary">Cadastre-se para participar da campanha</a> 
+                  <a href="{% url 'accounts:cadastro' %}" class="botao">Cadastre-se para participar da campanha</a> 
                   {% endif %}
               </div>
           </div>

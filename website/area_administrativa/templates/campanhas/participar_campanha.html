@@ -9,13 +9,13 @@
   <label>Qual personagem você vai utilizar?</label>
   <select name="personagem_selecionado" id="personagem_selecionado">
     {% for personagem in personagens %}
-      <option id="personagem-{{personagem.id}}" value="{{personagem.id}}">{{personagem.nome_personagem}}</option>
+      <option class="" id="personagem-{{personagem.id}}" value="{{personagem.id}}">{{personagem.nome_personagem}}</option>
       {% empty %}
       <option>Nenhum personagem foi cadastro ainda</option>      
     {% endfor%}
   </select>
   <textarea class="pergunta" id="mensagem" name="mensagem" rows="4" cols="50"></textarea>
-  <button type="submit" class="btn btn-success">Sim, desejo partcipar</button>
+  <button type="submit" class="botao">Sim, desejo partcipar</button>
   <a href="{% url 'explorar_campanhas' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}
