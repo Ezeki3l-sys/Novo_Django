@@ -21,10 +21,10 @@
   <div class="tab-pane fade show active" id="nav-mestre" role="tabpanel" aria-labelledby="nav-mestre-tab">
 
     <div class="container text-center lista_personagens">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">
         {% for c in campanhas %}      
         <div class="col">
-          <div class="card card_campanhas_personagens" style="width: 18rem;">
+          <div class="card" style="width: 18rem;">
                 <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
                 <div class="card-body ">
                     <h5 class="card-title">{{c.nome_campanha}}</h5>
@@ -42,11 +42,10 @@
       </div>
       <a style="margin-top: 20px;" href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
     </div>
-
   </div>
-  <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
-    Sou JOGADOR
-  </div>
+  <!-- <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
+    Sou JOGADORaaaaaa
+  </div> -->
 </div>
 
 
