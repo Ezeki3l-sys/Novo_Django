@@ -107,8 +107,9 @@ def minhas_campanhas(request):
     PRECISA SEPARAR AS CAMPANHAS ONDE O USUARIO E MESTRE DAQUELE JOGO
     E AS CAMPANHAS ONDE ELE E JOGADOR
     '''
-    minhas_campanhas_mestre = [] #minhas_campanhas.filter(mestre=request.user)
-    minhas_campanhas_jogador = [] #     minhas_campanhas.exclude(mestre=request.user)
+    minhas_campanhas_mestre = minhas_campanhas.filter(mestre=request.user)
+    print
+    minhas_campanhas_jogador =  CampanhaJogador.objects.filter(usuario=request.user)  #minhas_campanhas.exclude(mestre=request.user)
 
     return render(request, 'campanhas/index-campanhas.html', {'campanhas': minhas_campanhas, 'campanhas_mestre': minhas_campanhas_mestre, 'campanhas_jogador': minhas_campanhas_jogador})
 
@@ -197,8 +198,8 @@ def participar_campanha(request, id):
         return redirect('minhas_campanhas')
     return render(request, 'campanhas/participar_campanha.html', {'campanha': campanha,'personagens':personagens})
 
-def solicitacoes(request):
-    
+
+def solicitacoes(request):    
     solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status="P")
     print(solicitacoes)
     return render(request, 'mestre/solicitacoes.html', {'solicitacoes':solicitacoes})
@@ -236,6 +237,13 @@ def decisao(request, id):
                 )
 
     return redirect('solicitacoes')
+
+
+@login_required
+def jogar(request, id):
+    campanha_jogadores = CampanhaJogador.objects.filter(campanha=id)
+ 
+    return render(request, 'campanhas/jogar/index-jogar.html', {'campanha_jogadores': campanha_jogadores})
 
 
 def mestres(request):

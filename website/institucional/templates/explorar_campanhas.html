@@ -21,14 +21,20 @@
               <div class="card-body ">
                   <h5 class="card-title">{{c.nome_campanha}}</h5>
           
-                  <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
+                  <button type="button" class="btn btn-lg botao" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
       
                   <p class="card-text">{{c.mestre}}</p>
-                  {%if user.username%}
-                    <a href="{% url 'participar_campanha' c.id %}" class="botao">Participar da campanha</a> 
+                  {% if user.is_authenticated %}
+                  {% if c.id in minhas_campanhas %}
+                      <a href="{% url 'jogar_campanha' c.id %}" class="btn botao">Jogar</a> 
                   {% else %}
-                  <a href="{% url 'accounts:cadastro' %}" class="botao">Cadastre-se para participar da campanha</a> 
+                      <a href="{% url 'participar_campanha' c.id %}" class="btn botao">Participar da campanha</a>
                   {% endif %}
+                {% else %}
+                    <a href="{% url 'accounts:cadastro' %}" class="botao">
+                      Cadastre-se para participar da campanha
+                    </a>
+                {% endif %}                  
               </div>  
           </div>
       </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from website.institucional.models import Slideshow
-from website.area_administrativa.models import Campanha, Usuario
+from website.area_administrativa.models import Campanha, Usuario, CampanhaJogador
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -18,19 +18,41 @@ def home(request):
     return render(request,'index.html',{'slideshows':slideshows})   
 
 def explorar_campanhas(request):
-    todas_campanhas = Campanha.objects.all().order_by('data_inicio', 'nome_campanha').exclude(mestre__username=request.user)
+  # Todas as campanhas, exceto as que o usuário é mestre
+    todas_campanhas = (
+        Campanha.objects
+        .all()
+        .order_by('data_inicio', 'nome_campanha')
+        .exclude(mestre__username=request.user)
+    )
 
-    if request.method == 'GET':
-        return render(request, 'explorar_campanhas.html', {'campanhas': todas_campanhas, 'pesquisa': ''})
+    # Se o usuário estiver logado, pegamos as campanhas em que ele participa
+    if request.user.is_authenticated:
+        minhas_campanhas_ids = CampanhaJogador.objects.filter(
+            usuario=request.user
+        ).values_list('campanha_id', flat=True)
+    else:
+        minhas_campanhas_ids = []
 
-    pesquisar = request.POST.get('pesquisar_campanha', '').strip()
-    
-    if pesquisar:
-        todas_campanhas = todas_campanhas.filter(
-            Q(nome_campanha__icontains=pesquisar) | Q(mestre__first_name__icontains=pesquisar) | Q(mestre__username__icontains=pesquisar)
-        )
+    # Filtro de pesquisa (POST)
+    if request.method == 'POST':
+        pesquisar = request.POST.get('pesquisar_campanha', '').strip()
+        if pesquisar:
+            todas_campanhas = todas_campanhas.filter(
+                Q(nome_campanha__icontains=pesquisar)
+                | Q(mestre__first_name__icontains=pesquisar)
+                | Q(mestre__username__icontains=pesquisar)
+            )
+    else:
+        pesquisar = ''
 
-    return render(request, 'explorar_campanhas.html', {'campanhas': todas_campanhas, 'pesquisa': pesquisar})
+    contexto = {
+        'campanhas': todas_campanhas,
+        'pesquisa': pesquisar,
+        'minhas_campanhas': minhas_campanhas_ids,
+    }
+
+    return render(request, 'explorar_campanhas.html', contexto)
 
 # def cadastro(request):
 #     messages.add_message(request, constants.SUCCESS, 'Página carregada com sucesso')

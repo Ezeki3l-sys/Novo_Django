@@ -34,15 +34,14 @@
                     {% for c in campanhas %}      
                         <h2><a href="{% url 'detalhes_campanha' c.id %}">{{c.nome_campanha}}</a></h2>
                     {% endfor%}
-                    <a href="{% url 'cadastrar_campanha' %}"><i class="bi bi-plus-circle mais" ></i></a>
+                    <a href="{% url 'cadastrar_campanha' %}"><i class="bi bi-plus-circle" ></i></a>
                 </div>
                 <div>
                     <h2>MEUS PERSONAGENS</h2>
                     {% for p in personagens %}      
                         <h2><a href="{% url 'detalhes_personagem' p.id %}">{{p.nome_personagem}}</a></h2>
                     {% endfor %}
-                    <a href="{% url 'cadastrar_personagem' %}"><i class="bi bi-plus-circle mais" ></i></a>
-                    
+                    <a href="{% url 'cadastrar_personagem' %}"><i class="bi bi-plus-circle" ></i></a>
                 </div>
             </div>
         </div>

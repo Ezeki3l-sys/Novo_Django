@@ -398,6 +398,7 @@ a, .nav-link{
 a:hover, a:active, .nav-link:hover, .nav-link:active{
     color: var(--cor-fundo);
     background-color: var(--cor-destaque);
+    border-radius: 10px;
 }
 .letra_grande{
     font-size: 30px;

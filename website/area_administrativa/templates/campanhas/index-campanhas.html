@@ -43,9 +43,29 @@
       <a style="margin-top: 20px;" href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
     </div>
   </div>
-  <!-- <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
-    Sou JOGADORaaaaaa
-  </div> -->
+  <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
+    <div class="container text-center lista_personagens">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">    
+        {% for cj in campanhas_jogador %}      
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+                <img src="{{cj.campanha.imagem_de_capa.url}}" class="card-img-top" alt="...">
+                <div class="card-body ">
+                    <h5 class="card-title">{{cj.campanha.nome_campanha}}</h5>
+                    
+                    <p class="card-text">
+                      <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{cj.campanha.nome_campanha}}" data-bs-content="{{cj.campanha.descricao}}">Descrição</button>
+                    </p>
+                    <a href="{% url 'detalhes_campanha' cj.campanha.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
+                    <a href="{% url 'editar_campanha' cj.campanha.id %}" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                    <a href="{% url 'excluir_campanha' cj.campanha.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+      </div>
+    </div>
+  </div>
 </div>
 
 
