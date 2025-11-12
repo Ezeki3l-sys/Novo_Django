@@ -127,10 +127,9 @@ def detalhes_campanha(request, id):
    
     #print(minhas_campanhas_mestre[0].get('anotacoes'))
     #minhas_anotacoes = json.dumps(list(minhas_campanhas_mestre[0].get('anotacoes')), cls=DjangoJSONEncoder)
-    minhas_anotacoes = minhas_campanhas_mestre[0].get('anotacoes')
+    minhas_anotacoes =json.dumps(minhas_campanhas_mestre[0].get('anotacoes'), cls=DjangoJSONEncoder)
     #print(minhas_anotacoes[0])
     return render(request, 'mestre/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'minhas_campanhas_json': minhas_campanhas_json, 'minhas_anotacoes': minhas_anotacoes})
-
 
 @login_required
 def salvar_anotacao_mestre(request, id):

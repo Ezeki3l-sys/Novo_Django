@@ -145,6 +145,8 @@
      localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(minhas_anotacoes));
 
     let dados = JSON.parse(localStorage.getItem(`sessoes_rpg_${campanha_}`)) || [];
+    console.log("DADOS", dados);
+
     let sessao_atual = 0;
     let cena_selecionada = 0;
 
@@ -177,7 +179,9 @@
             document.getElementById('titulo_sessao').textContent = `SESSÃO ${sessao_atual}`;
             const lista_cenas = document.getElementById('id_cenas');
             lista_cenas.innerHTML = '';
-
+            if (typeof dados === "string") {
+            dados = JSON.parse(dados);
+            }
             if (!dados[sessao_atual]) dados[sessao_atual] = [];
             dados[sessao_atual].forEach((cena, index) => {
                 const p = document.createElement('div');
