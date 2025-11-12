@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block 'title' %}Detalhes da Campanha{% endblock %}
+{% block 'title' %}Detalhes da Campanha : {{campanha.nome_campanha}}{% endblock %}
 {% block 'head' %}
 <style>
     .manuseio{
@@ -135,21 +135,20 @@
      };
      
      localStorage.setItem("campanha_selecionada", JSON.stringify(campanha));
-     
-     //PRECISO RECRIAR O OBJETO CAMPANHA PARA PEGAR AS SESSOES
-     
-    const minhas_anotacoes = JSON.parse(`{{ minhas_anotacoes|escapejs|safe }}`);
-    console.log(minhas_anotacoes);  
-     localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(campanha.sessoes));
-    //const campanha = JSON.parse('{{ minhas_campanhas_json|escapejs|safe }}');
-    //const campanha =  JSON.parse(localStorage.getItem("campanha_selecionada"));
-        const campanha_escolhida = campanha.nome.toLowerCase()
-        const campanha_ = campanha_escolhida.replace(" ", "_")
-        let dados = JSON.parse(localStorage.getItem(`sessoes_rpg_${campanha_}`)) || [];
-        let sessao_atual = 0;
-        let cena_selecionada = 0;
+     const campanha_escolhida = campanha.nome.toLowerCase()
 
-        function salvar_dados() {
+     //PRECISO RECRIAR O OBJETO CAMPANHA PARA PEGAR AS SESSOES
+     const minhas_anotacoes = JSON.parse(`{{ minhas_anotacoes|escapejs|safe }}`);
+     console.log(minhas_anotacoes);  
+     
+     const campanha_ = campanha.id //campanha_escolhida.replace(" ", "_") -> Utilizando o ID da Campanha para criar o nome recurso da localstorage
+     localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(minhas_anotacoes));
+
+    let dados = JSON.parse(localStorage.getItem(`sessoes_rpg_${campanha_}`)) || [];
+    let sessao_atual = 0;
+    let cena_selecionada = 0;
+
+    function salvar_dados() {
             localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(dados));
             const urlSalvar = "{{ salvar_anotacao_base }}".replace('/0/', `/${campanha.id}/`);
             const csrfToken = "{{ csrf_token }}";
