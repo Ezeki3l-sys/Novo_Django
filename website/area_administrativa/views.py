@@ -120,17 +120,20 @@ def minhas_campanhas(request):
 @login_required
 def detalhes_campanha(request, id):
     jogadores = CampanhaJogador.objects.filter(campanha=id)
-    print(jogadores)
+    #print(jogadores)
     campanha = get_object_or_404(Campanha, id=id)
     minhas_campanhas_mestre = (Campanha.objects.filter(id=id, mestre=request.user).order_by('nome_campanha').values())
     minhas_campanhas_json = json.dumps(list(minhas_campanhas_mestre), cls=DjangoJSONEncoder)
+   
+    print(minhas_campanhas_mestre[0].get('anotacoes'))
+    minhas_anotacoes = json.dumps(list(minhas_campanhas_mestre[0].get('anotacoes')), cls=DjangoJSONEncoder)
     print(minhas_campanhas_json)
-    return render(request, 'mestre/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'minhas_campanhas_json': minhas_campanhas_json})
+    return render(request, 'mestre/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'minhas_campanhas_json': minhas_campanhas_json, 'minhas_anotacoes': minhas_anotacoes})
 
 @login_required
 def salvar_anotacao_mestre(request, id):
     if request.method == 'POST':
-        anotacao = request.POST.get('anotacao_mestre')  
+        anotacao = json.loads(request.POST.get('anotacao_mestre'))  
         campanha_mestre = get_object_or_404(Campanha, id=id, mestre=request.user)
         print(anotacao)
         campanha_mestre.anotacoes = anotacao

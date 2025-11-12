@@ -137,7 +137,10 @@
      localStorage.setItem("campanha_selecionada", JSON.stringify(campanha));
      
      //PRECISO RECRIAR O OBJETO CAMPANHA PARA PEGAR AS SESSOES
-     //localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(campanha.sessoes));
+     
+    const minhas_anotacoes = JSON.parse(`{{ minhas_anotacoes|escapejs|safe }}`);
+    console.log(minhas_anotacoes);  
+     localStorage.setItem(`sessoes_rpg_${campanha_}`, JSON.stringify(campanha.sessoes));
     //const campanha = JSON.parse('{{ minhas_campanhas_json|escapejs|safe }}');
     //const campanha =  JSON.parse(localStorage.getItem("campanha_selecionada"));
         const campanha_escolhida = campanha.nome.toLowerCase()
