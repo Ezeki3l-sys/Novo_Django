@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import constants
 from .models import Personagem, Classe, Campanha, Usuario, PedidoParticipacaoCampanha, CampanhaJogador
 from datetime import datetime
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 # Create your views here.
 # def home(request):
 #     return HttpResponse(f"<h1>Hello</h1>")
@@ -107,8 +111,8 @@ def minhas_campanhas(request):
     PRECISA SEPARAR AS CAMPANHAS ONDE O USUARIO E MESTRE DAQUELE JOGO
     E AS CAMPANHAS ONDE ELE E JOGADOR
     '''
-    minhas_campanhas_mestre = minhas_campanhas.filter(mestre=request.user)
-    print
+    minhas_campanhas_mestre = minhas_campanhas.filter(mestre=request.user).values()
+    print(minhas_campanhas_mestre)
     minhas_campanhas_jogador =  CampanhaJogador.objects.filter(usuario=request.user)  #minhas_campanhas.exclude(mestre=request.user)
 
     return render(request, 'campanhas/index-campanhas.html', {'campanhas': minhas_campanhas, 'campanhas_mestre': minhas_campanhas_mestre, 'campanhas_jogador': minhas_campanhas_jogador})
@@ -118,8 +122,28 @@ def detalhes_campanha(request, id):
     jogadores = CampanhaJogador.objects.filter(campanha=id)
     print(jogadores)
     campanha = get_object_or_404(Campanha, id=id)
-    return render(request, 'campanhas/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores})
+    minhas_campanhas_mestre = (Campanha.objects.filter(id=id, mestre=request.user).order_by('nome_campanha').values())
+    minhas_campanhas_json = json.dumps(list(minhas_campanhas_mestre), cls=DjangoJSONEncoder)
+    print(minhas_campanhas_json)
+    return render(request, 'mestre/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'minhas_campanhas_json': minhas_campanhas_json})
 
+@login_required
+def salvar_anotacao_mestre(request, id):
+    if request.method == 'POST':
+        anotacao = request.POST.get('anotacao_mestre')  
+        campanha_mestre = get_object_or_404(Campanha, id=id, mestre=request.user)
+        print(anotacao)
+        campanha_mestre.anotacoes = anotacao
+        campanha_mestre.save()
+
+        return JsonResponse({
+            "status": "ok",
+            "redirect_url": reverse('detalhes_campanha', args=[campanha_mestre.id])
+        })
+    
+    return JsonResponse({'status': 'erro', 'mensagem': 'Método inválido'}, status=400)
+
+    
 @login_required
 def cadastrar_campanha(request):
     if request.method == 'POST':
@@ -241,10 +265,48 @@ def decisao(request, id):
 
 @login_required
 def jogar(request, id):
-    campanha_jogadores = CampanhaJogador.objects.filter(campanha=id)
- 
-    return render(request, 'campanhas/jogar/index-jogar.html', {'campanha_jogadores': campanha_jogadores})
+    campanha_jogadores = CampanhaJogador.objects.filter(campanha=id).first()
+    jogador = get_object_or_404(CampanhaJogador, campanha=id, usuario=request.user)
 
+    print(jogador)
+
+    return render(request, 'campanhas/jogar/index-jogar.html', {'campanha_jogadores': campanha_jogadores, 'jogador': jogador})
+
+@login_required
+def salvar_anotacao_jogador(request, id):
+    if request.method == 'POST':
+        anotacao = request.POST.get('anotacao_jogador')
+        campanha_jogador = get_object_or_404(CampanhaJogador, id=id, usuario=request.user)
+        campanha_jogador.anotacoes = anotacao
+        campanha_jogador.save()
+        #return HttpResponse('Anotação salva com sucesso!')
+        return redirect('jogar_campanha', id=campanha_jogador.campanha.id)
+    
+    return HttpResponse('Método inválido.', status=400)
+
+# @login_required
+# def salvar_vida_jogador(request, id, vida):
+#     campanha = get_object_or_404(Campanha, pk=id)
+#     jogador = get_object_or_404(CampanhaJogador, campanha=campanha, usuario=request.user)
+
+#     jogador.vida_atual = vida
+#     jogador.save()
+
+#     return redirect('jogar_campanha', id=jogador.campanha.id)
+
+@login_required
+def salvar_vida_jogador(request, id, vida):
+    campanha = get_object_or_404(Campanha, pk=id)
+    jogador = get_object_or_404(CampanhaJogador, campanha=campanha, usuario=request.user)
+
+    jogador.vida_atual = vida
+    jogador.save()
+
+    return JsonResponse({
+        "status": "ok",
+        "nova_vida": jogador.vida_atual,
+        "redirect_url": reverse('jogar_campanha', args=[jogador.campanha.id])
+    })
 
 def mestres(request):
     return render(request, 'mestres/index.html')

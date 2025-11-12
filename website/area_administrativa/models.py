@@ -35,9 +35,14 @@ class Campanha(models.Model):
         mestre = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, blank = True, null = True)
         nome_campanha = models.CharField(verbose_name ="campanha",max_length=50, blank=False, null=False,)
         imagem_de_capa = models.ImageField(verbose_name ="imagem", upload_to='campanhas/')
-        descricao = models.TextField(verbose_name ="descricao",max_length=50, blank=True, null=True,)
+        # Colocar uma imagem default para caso o Usuário não coloque imagem para a campanha
+        descricao = models.TextField(verbose_name ="descricao",max_length=1000, blank=True, null=True,)
         data_inicio = models.DateField(blank = False, null = False )
         data_fim = models.DateField(blank=True, null= True)
+        anotacoes = models.JSONField(encoder=None, decoder=None, verbose_name ="anotações", blank=True, null=True,)
+        publico = models.BooleanField(default=True)
+        ativo = models.BooleanField(default=True)
+
 
         class Meta:
              verbose_name_plural = 'Campanhas'
@@ -140,21 +145,21 @@ class CampanhaJogador(models.Model):
         return f"{self.personagem} em {self.campanha}"
 
 
-class Jogo(models.Model):
-    campanha = models.ForeignKey(
-        Campanha,
-        on_delete=models.CASCADE,
-        related_name='jogos'
-    )
-    data_inicio = models.DateTimeField(auto_now_add=True)
-    data_fim = models.DateTimeField(blank=True, null=True)
-    ativo = models.BooleanField(default=True)
-    descricao = models.TextField(blank=True, null=True)
+# class Jogo(models.Model):
+#     campanha_jogador = models.ForeignKey(
+#         CampanhaJogador,
+#         on_delete=models.CASCADE,
+#         related_name='campanha_jogos'
+#     )
+#     data_inicio = models.DateTimeField(auto_now_add=True)
+#     data_fim = models.DateTimeField(blank=True, null=True)
+#     ativo = models.BooleanField(default=True)
+#     descricao = models.TextField(blank=True, null=True)
 
-    class Meta:
-        verbose_name = 'Sessão de Jogo'
-        verbose_name_plural = 'Sessões de Jogo'
-        ordering = ('-data_inicio',)
+#     class Meta:
+#         verbose_name = 'Sessão de Jogo'
+#         verbose_name_plural = 'Sessões de Jogo'
+#         ordering = ('-data_inicio',)
 
-    def __str__(self):
-        return f"Jogo da campanha {self.campanha.nome_campanha} ({'ativo' if self.ativo else 'encerrado'})"
+#     def __str__(self):
+#         return f"Jogo da campanha {self.campanha.nome_campanha} ({'ativo' if self.ativo else 'encerrado'})"

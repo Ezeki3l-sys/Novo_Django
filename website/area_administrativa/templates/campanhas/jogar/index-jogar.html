@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block 'title' %}Jogar - {% endblock %}
+{% block 'title' %}Jogar - {{campanha_jogadores.campanha.nome_campanha}}{% endblock %}
 {% block 'head' %}
 <style>
     .manuseio{
@@ -33,16 +33,38 @@
 <div class="geral">
     <div style="width: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;" >
        <div style="display: flex; justify-content: center; align-items: center;">
-        <div class="campanha">
-            <h2>{{campanha_jogadores.campanha.nome_campanha}}</h2>
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <div><img src="{{campanha_jogadores.campanha.imagem_de_capa.url}}" alt="foto_de_imagem" width="400"><br></div>
-            </div>
-            <p>Data de início:{{campanha_jogadores.campanha.data_inicio}}</p>
-            <p>Data de fim: {{campanha_jogadores.campanha.data_fim}}</p>
-            <p>Descrição:{{campanha_jogadores.campanha.descricao}}</p>
-            
-        </div>
+            <div class="campanha">
+                <h2>{{ campanha_jogadores.campanha.nome_campanha }} </h2>
+
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ campanha_jogadores.campanha.imagem_de_capa.url }}" alt="foto_de_imagem" width="400"><br>
+                    </div>
+
+                    <p>Período: {{ campanha_jogadores.campanha.data_inicio }} | {{ campanha_jogadores.campanha.data_fim }}</p>
+
+                    <p>{{ campanha_jogadores.campanha.descricao }}</p>
+
+                    <hr>
+                    <p><strong>Personagem:</strong> {{ campanha_jogadores.personagem.nome_personagem}}</p>
+                    <p><strong>Raça:</strong> {{ campanha_jogadores.personagem.raca }}</p>
+                    <p><strong>Classe:</strong> {{ campanha_jogadores.personagem.classe }}</p>
+                    <p><strong>Experiência:</strong> {{ campanha_jogadores.experiencia }}</p>
+                    <p><strong>Vida Atual:</strong> {{ campanha_jogadores.vida_atual }}/{{ campanha_jogadores.personagem.vida}}</p>
+
+                    <div class="manuseio">
+                        <button onclick="progressao(10,'-')">-10</button>
+                        <button onclick="progressao(5,'-')">-5</button>
+                        <button onclick="progressao(1,'-')">-1</button>
+                            <div class="barra">
+                                <div class="progresso"></div>
+                                <div class="numeral">{{campanha_jogadores.vida_atual}}</div>
+                            </div>
+                        <button onclick="progressao(1,'+')">+1</button>
+                        <button onclick="progressao(5,'+')">+5</button>
+                        <button onclick="progressao(10,'+')">+10</button>
+                        <button class="btn btn-primary" onclick="salvarVida()">Salvar informação vida</button>
+                    </div>
+            </div>          
        </div>
         
         <div id="container">
@@ -63,59 +85,54 @@
         </div>
     </div>
     
-    <div class="borda_sessoes">
-    <div class="sessoes">
-        <button class="botao" onclick="mudar_sessao(-1)">&lt;</button>
-        <h2 id="titulo_sessao" class="class_nome_da_campanha">SESSÃO 0</h2>
-        <button class="botao" onclick="mudar_sessao(1)">&gt;</button>
-    </div>
-    <div class="sessoes">
-        <button class="botao" onclick="criar_sessao()">Criar Sessão</button>
-    </div>
-    
-    <div>
-        <article class="cenas_descricao">
-            <section class="gordura_da_cena">
-                <h3 class="letra_grande">CENAS</h3>
-                <button class="botao" id="id_criar_cena">CRIAR CENA</button><br><br>
-                <div id="id_cenas">
+    <div class=" m-3 p-3" >
+        <div>
+            <article class="cenas_descricao">
+                <section>
+                    <form class="formulario" name="anotacoes_jogador_form" method="post" action="" article-aria-label="Anotações do Jogador">
+                        {% csrf_token %}
+                        <h3 class="letra_grande">ANOTAÇÕES: <h4 id="cena_atual_titulo" class="letra_pequena"></h4></h3><br>
+                        <div class="form-floating">
+                            <textarea class="form-control" name="anotacao_jogador" placeholder="Comente sobre sua cena aqui!" id="anotacao_jogador" style="height: 400px; width: 400px;">teste testado!!!</textarea>
+                        </div>
+                        <button type="submit" class="botao">Salvar</button>
+                    </form> 
+                </section>
+            </article>
         </div>
-        </section>
-    
-            <section>
-                <div>
-                    <h3 class="letra_grande">VOCÊ ESTÁ NA: <h4 id="cena_atual_titulo" class="letra_pequena"></h4></h3><br>
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Comente sobre sua cena aqui!" id="descricao_cena" style="height: 300px; width: 300px;">teste testado!!!</textarea>
-                        <label for="descricao_cena">Comente sobre sua cena aqui!</label>
-                </div>
-            </div>
-    
-    
-        </section>
-        </article>
-    </div>
-    </div>
-    <div>
-        {% for j in jogadores %}
-        <img width="100px" height="100px" src="{{j.personagem.avatar_personagem.url}}" alt="Avatar" class="rounded-circle" />
-        <p>{{j.personagem.nome_personagem}}</p>
-        <p>Jogador({{j.personagem.usuario}})</p>
-        <p>{{j.personagem.raca}}</p>
-        <p>{{j.personagem.classe}}</p>
-        <div class="manuseio">
-            <div class="barra">
-                <div class="progresso"></div>
-                <div class="numeral">{{j.personagem.vida}}</div>
-            </div>
-        </div>
-        {% endfor %}  
     </div>
 </div>
 
 
 <script>
+    const progresso = document.querySelector('.barra .progresso')
+    let porcent = {{campanha_jogadores.vida_atual}};
+    console.log(porcent);
+    let tag_div = document.querySelector('.numeral')
+    tag_div.innerText = porcent
+    total = {{campanha_jogadores.personagem.vida}}
+    // Arrumar o visual da barra de vida (não tá condizente com o valor)
+    
+    function progressao(numero,sinal){
 
+        let mudanca = 0
+        if (sinal =='-'){
+            mudanca = porcent-numero
+        }else{
+            mudanca = porcent+numero
+        }
+        if(mudanca<0){
+            mudanca = 0;                
+        }else if (mudanca >total){
+            mudanca = total
+        }
+        let x = Math.round(mudanca*100/total) 
+        porcent=mudanca
+        progresso.setAttribute('style','width:'+ x +'%')
+        tag_div.innerText = porcent
+        
+        
+    }
         
     function Rolar(dado){
         const numDeDados = document.getElementById('numero_de_dados').value;
@@ -139,6 +156,31 @@
         }
         
     }
+
+    {% url 'salvar_vida_jogador' 0 0 as salvar_vida_base %}
+    {% url 'jogar_campanha' 0 as jogar_campanha_base %}
+    function salvarVida() {
+        const numeral = document.querySelector('.numeral');
+        const vidaAtual = numeral.textContent.trim();
+        const campanhaId = "{{ campanha_jogadores.campanha.id }}"; // ou campanha_jogadores.campanha.id
+
+        const urlSalvar = "{{ salvar_vida_base }}".replace('/0/0/', `/${campanhaId}/${vidaAtual}/`);
+        const urlRedirecionar = "{{ jogar_campanha_base }}".replace('/0/', `/${campanhaId}/`);
+
+        fetch(urlSalvar)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "ok") {
+                window.location.href = data.redirect_url; // redireciona
+            } else {
+                alert("Erro ao salvar vida!");
+            }
+        })
+        .catch(err => console.error("Erro:", err));
+
+    }
+
+
 </script>
 
 

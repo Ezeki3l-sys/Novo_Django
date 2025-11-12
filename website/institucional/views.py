@@ -12,7 +12,6 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 
 
-# Create your views here.
 def home(request):
     slideshows = Slideshow.objects.filter(ativo=True)
     return render(request,'index.html',{'slideshows':slideshows})   
@@ -23,7 +22,7 @@ def explorar_campanhas(request):
         Campanha.objects
         .all()
         .order_by('data_inicio', 'nome_campanha')
-        .exclude(mestre__username=request.user)
+        .exclude(mestre__username=request.user).exclude(ativo=False).exclude(publico=False)
     )
 
     # Se o usuário estiver logado, pegamos as campanhas em que ele participa

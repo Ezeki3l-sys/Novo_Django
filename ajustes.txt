@@ -1,1 +1,3 @@
 [] - Revisar o carrossel da home, ele não roda automaticamente pela primeira vez
+Colocar imagem default para usuário e campanha
+vida máxima e atual no jogar index

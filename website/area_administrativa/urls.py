@@ -14,16 +14,22 @@ urlpatterns = [
     path('cadastrar-campanha/', views.cadastrar_campanha, name='cadastrar_campanha'),
     path('excluir_campanha/<int:id>/', views.excluir_campanha, name='excluir_campanha'),
     path('editar_campanha/<int:id>/', views.editar_campanha, name='editar_campanha'),
-    path('detalhes_campanha/<int:id>/', views.detalhes_campanha, name='detalhes_campanha'),
+    
 
 
     path('participar-campanha/<int:id>/', views.participar_campanha, name='participar_campanha'),
+    path('mestre/detalhes_campanha/<int:id>/', views.detalhes_campanha, name='detalhes_campanha'),
     path('mestre/solicitacoes', views.solicitacoes, name='solicitacoes'), 
+    path('jogar/mestre/salvar-anotacao/<int:id>/', views.salvar_anotacao_mestre, name='salvar_anotacao_mestre'),
+
 
     path('mestre/solicitacoes/aprovar/<int:id>/', views.decisao, name='aprovar'), 
     path('mestre/solicitacoes/reprovar/<int:id>/', views.decisao, name='reprovar'), 
 
-    path('jogar/<int:id>/', views.jogar, name='jogar'),
+    path('jogar/<int:id>/', views.jogar, name='jogar_campanha'),
+    path('jogar/jogador/salvar-anotacao/<int:id>/', views.salvar_anotacao_jogador, name='salvar_anotacao_jogador'),
+
+    path('jogar/jogador/salvar-vida/<int:id>/<int:vida>/', views.salvar_vida_jogador, name='salvar_vida_jogador'),
 
  
 
