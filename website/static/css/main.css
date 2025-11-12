@@ -271,7 +271,13 @@ i.bi{
  /* Minhas Campanhas */
  .geral{
     display: flex;
+    gap: 50px;
  }
+ @media (max-width: 1000px){
+    .geral{
+    gap: 0px;
+ }
+}
  #botoes{
     display: flex;
     flex-direction: column;
@@ -289,6 +295,11 @@ i.bi{
     border: 3px solid var(--cor-destaque);
     border-radius: 40px ;
     width: 400px;
+}
+@media only screen and (max-width: 450px) {
+    .campanha img{
+        max-width: 350px;
+    }
 }
 #container{
     color: var(--cor-texto);
@@ -327,11 +338,11 @@ i.bi{
         flex-direction: row;
         gap: 100px;
     }
-  }
+}
 .borda_cenas_descricao{
     border: 5px solid var(--cor-destaque);
     padding: 10px;  
-    
+    color: red;
 }
 .sessoes{ 
     display: flex; 
@@ -343,6 +354,16 @@ i.bi{
 .borda_sessoes{
     border: 3px solid var(--cor-destaque);
 }
+
+.total_sessoes_cenas{
+    padding: 50px;
+}
+@media (max-width: 410px){
+    .total_sessoes_cenas{
+        margin-left: 10px;
+    }
+}
+
 
 /* --- Lista de Jogadores e Personagens --- */
 
@@ -435,6 +456,11 @@ label{
 span{
     color: var(--cor-texto);
 }
-.ta_bom{
-    display: block;
+@media (max-width: 1020px){
+    .campanha_coluna_ou_linha{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 }

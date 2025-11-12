@@ -30,10 +30,10 @@
 </style>
 {% endblock %}
 {% block 'conteudo' %}
-<div class="geral">
-    <div style="width: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;" >
-       <div style="display: flex; justify-content: center; align-items: center;">
-        <div class="campanha">
+<div class="geral campanha_coluna_ou_linha">
+    <div style="width: 50%;">
+       <div>
+        <div class="campanha campanha_coluna_ou_linha">
             <h2>{{campanha.nome_campanha}}</h2>
             <div style="display: flex; align-items: center; justify-content: center;">
                 <!-- <div style="display: flex; flex-direction: column;">
@@ -50,7 +50,7 @@
         </div>
        </div>
         
-        <div id="container">
+        <div style="padding: 0px;" id="container">
             <h1>Rolagem de dados</h1>
             <div id="dados">
                 <img onclick="Rolar(4)" src="{% static 'img/d4.png' %}" width="50px" alt="">
@@ -67,41 +67,44 @@
             <div id="soma_dos_dados"></div>
         </div>
     </div>
-    
-    <div class="borda_sessoes">
-    <div class="sessoes">
-        <button class="botao" onclick="mudar_sessao(-1)">&lt;</button>
-        <h2 id="titulo_sessao" class="class_nome_da_campanha">SESSÃO 0</h2>
-        <button class="botao" onclick="mudar_sessao(1)">&gt;</button>
-    </div>
-    <div class="sessoes">
-        <button class="botao" onclick="criar_sessao()">Criar Sessão</button>
-    </div>
-    
-    <div>
-        <article class="cenas_descricao">
-            <section class="gordura_da_cena">
-                <h3 class="letra_grande">CENAS</h3>
-                <button class="botao" id="id_criar_cena">CRIAR CENA</button><br><br>
-                <div id="id_cenas">
-        </div>
-        </section>
-    
-            <section>
-                <div>
-                    <h3 class="letra_grande">VOCÊ ESTÁ NA: <h4 id="cena_atual_titulo" class="letra_pequena"></h4></h3><br>
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Comente sobre sua cena aqui!" id="descricao_cena" style="height: 300px; width: 300px;">teste testado!!!</textarea>
-                        <label for="descricao_cena">Comente sobre sua cena aqui!</label>
-                </div>
+    <div style="padding: 50px;">
+    <!-- TENHO QUE ARRUMAR A PARTE DA DESCRIÇÃO/CENA PARA O MOBILE -->
+        <div class="borda_sessoes total_sessoes_cenas">
+            <div class="sessoes">
+                <button class="botao" onclick="mudar_sessao(-1)">&lt;</button>
+                <h2 id="titulo_sessao" class="class_nome_da_campanha">SESSÃO 0</h2>
+                <button class="botao" onclick="mudar_sessao(1)">&gt;</button>
             </div>
-    
-    
-            </section>
-        </article>
+            <div class="sessoes">
+                <button class="botao" onclick="criar_sessao()">Criar Sessão</button>
+            </div>
+        
+            <div>
+                <article class="cenas_descricao">
+                    <section class="gordura_da_cena">
+                        <h3 class="letra_grande">CENAS</h3>
+                        <button class="botao" id="id_criar_cena">CRIAR CENA</button><br><br>
+                        <div id="id_cenas">
+                        </div>
+                    </section>
+        
+                <section>
+                    <div>
+                        <h3 class="letra_grande">VOCÊ ESTÁ NA: <h4 id="cena_atual_titulo" class="letra_pequena"></h4></h3><br>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Comente sobre sua cena aqui!" id="descricao_cena" style="height: 300px; width: 300px;">teste testado!!!</textarea>
+                                <label for="descricao_cena">Comente sobre sua cena aqui!</label>
+                            </div>
+                    </div>
+        
+        
+                </section>
+                </article>
+            </div>
+        </div>
     </div>
-    </div>
-    <div>
+</div>
+<div style="max-width: min-content;" class="borda_sessoes">
         {% for j in jogadores %}
         <img width="100px" height="100px" src="{{j.personagem.avatar_personagem.url}}" alt="Avatar" class="rounded-circle" />
         <p>{{j.personagem.nome_personagem}}</p>
@@ -116,7 +119,6 @@
         </div>
         {% endfor %}  
     </div>
-</div>
 
 <script>
     {% url 'salvar_anotacao_mestre' 0 as salvar_anotacao_base %}
