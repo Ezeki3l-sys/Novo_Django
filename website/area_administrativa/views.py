@@ -120,9 +120,13 @@ def minhas_campanhas(request):
 
 @login_required
 def detalhes_campanha(request, id):
+    campanha = get_object_or_404(Campanha, id=id)
+
+    # Só o mestre pode ver detalhes
+    if campanha.mestre != request.user:
+        return redirect('accounts:logout')  # ou uma página "sem permissão"    
     jogadores = CampanhaJogador.objects.filter(campanha=id)
     #print(jogadores)
-    campanha = get_object_or_404(Campanha, id=id)
     minhas_campanhas_mestre = (Campanha.objects.filter(id=id, mestre=request.user).order_by('nome_campanha').values())
     minhas_campanhas_json = json.dumps(list(minhas_campanhas_mestre), cls=DjangoJSONEncoder)
    
@@ -136,6 +140,8 @@ def salvar_anotacao_mestre(request, id):
         anotacao = json.loads(request.POST.get('anotacao_mestre'))  
         campanha_mestre = get_object_or_404(Campanha, id=id, mestre=request.user)
         print(anotacao)
+        if (anotacao == ''):
+            anotacao = {}
         campanha_mestre.anotacoes = anotacao
         campanha_mestre.save()
 

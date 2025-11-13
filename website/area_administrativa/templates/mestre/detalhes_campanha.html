@@ -111,16 +111,28 @@
         <p>Jogador({{j.personagem.usuario}})</p>
         <p>{{j.personagem.raca}}</p>
         <p>{{j.personagem.classe}}</p>
-        <div class="manuseio">
-            <div class="barra">
-                <div class="progresso"></div>
-                <div class="numeral">{{j.vida_atual}}</div>
-            </div>
-        </div>
+        <div class="progress">
+            {% widthratio j.vida_atual j.personagem.vida 100 as vida_percent %}
+
+            <div class="progresso progress-bar"  id="progressao-{{j.id}}"role="progressbar" style="width: {{ vida_percent  }}%;"  aria-valuenow="{{j.vida_atual}}" aria-valuemin="0" aria-valuemax="{{j.personagem.vida}}">{{j.vida_atual}}/{{j.personagem.vida}}</div>
+        </div> 
         {% endfor %}  
     </div>
 
 <script>
+    const progresso = document.querySelector('.barra .progresso')
+    
+    let vida_atual_sujeito = document.querySelector('.numeral')
+    let vida_maxima_sujeito = document.querySelector('.numeral2')
+    let porcent = vida_atual_sujeito.innerText
+    let total = vida_maxima_sujeito.innerText
+
+    
+    function progressao(idJogador){
+
+        progresso.setAttribute('style','width:'+ porcent +'%')
+    }
+
     {% url 'salvar_anotacao_mestre' 0 as salvar_anotacao_base %}
     
      const campanhaLista = JSON.parse(`{{ minhas_campanhas_json|escapejs|safe }}`);
