@@ -223,12 +223,16 @@ i.bi{
     align-items: center;
 }
 
-.formulario{
-    text-align: center;
+.formulario {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     border: 3px solid var(--cor-destaque);
-    border-radius: 40px ;
-}
+    border-radius: 40px;
+    padding: 20px;
+  }
 .pergunta{
     border-radius: 10px;
     background-color: transparent;
@@ -236,6 +240,7 @@ i.bi{
     margin: 10px;
     color: var(--cor-texto);
     max-width: fit-content;
+    justify-content: center;
 }
 .pergunta_img{
     border-radius: 10px;

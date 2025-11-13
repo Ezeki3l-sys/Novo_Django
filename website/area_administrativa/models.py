@@ -12,6 +12,8 @@ class Classe(models.Model):
 
     def __str__(self):
         return self.nome_classe
+    
+
 
 class Personagem(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, blank = True, null = True)

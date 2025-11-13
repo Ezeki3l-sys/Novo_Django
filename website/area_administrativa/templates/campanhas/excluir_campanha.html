@@ -2,7 +2,7 @@
 {% block 'title' %}Confirmar Exclusão{% endblock %}
 {% block 'conteudo' %}
 <h2>Deseja realmente deletar {{campanha.nome_campanha}}?</h2>
-<form method="POST">
+<form class="formulario" method="POST">
   {% csrf_token %}
   <button type="submit" class="btn btn-danger">Sim, deletar</button>
   <a href="{% url 'minhas_campanhas' %}" class="btn btn-secondary">Cancelar</a>

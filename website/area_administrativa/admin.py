@@ -11,6 +11,8 @@ admin.site.register(Personagem,PersonagemModelAdmin)
 
 admin.site.register(Classe)
 
+
+
 admin.site.register(Campanha)
 
 

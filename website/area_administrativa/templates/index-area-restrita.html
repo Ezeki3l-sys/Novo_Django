@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block 'conteudo' %}
-
-    <h2>Área Restrita</h2>
+{% block 'title' %}Seu Perfil{% endblock %}
+    <h2 class="titulos_entrada">Perfil de {{request.user}}</h2>
     <main class="perfil">
         <div>
             {% if user.avatar %}
@@ -24,10 +24,10 @@
             </span>
         </a>
         <a href="{% url 'solicitacoes_jogador' %}"  type="button" class="btn btn-info position-relative" {%if quantidade_solicitacoes_jogador == 0 %}style="display: none;"{% endif %}>
-            Solicitações de participação de campanha
+            Seus pedidos
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ quantidade_solicitacoes_jogador }}
-                <span class="visually-hidden">solicitações não lidas</span>
+                <span class="visually-hidden">solicitações para você</span>
             </span>
         </a>        
         </div>
