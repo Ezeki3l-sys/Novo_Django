@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block 'title' %}Gerenciar solicitações{% endblock %}
+{% block 'conteudo' %}
+<table class="table table-striped">
+    <thead> 
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Campanha</th>
+        <th scope="col">Mestre</th>
+        <th scope="col">Mensagem</th>
+        <th scope="col">Personagem</th>
+        <th scope="col">Data solicitação</th>
+        <th scope="col">Situação</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for s in solicitacoes%}
+      <tr class="solicitacao-{{s.id}}">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{s.campanha.nome_campanha}}</td>
+        <td>{{s.campanha.mestre.username}}</td>
+        <td>{{s.mensagem}}</td>
+        <td>{{s.personagem.nome_personagem}}</td>
+        <td>{{s.data_solicitacao}}</td>
+        <td>
+            {% if s.status == 'P' %}
+                <span class="badge bg-warning text-dark">Pendente</span>
+            {% elif s.status == 'A' %}
+                <span class="badge bg-success">Aceito</span>
+            {% elif s.status == 'R' %}
+                <span class="badge bg-danger">Recusado</span>
+            {% endif %}
+            
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

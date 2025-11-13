@@ -1,14 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 {% block 'conteudo' %}
+<div class="container">
 <h1>EXPLORE E BUSQUE POR CAMPANHAS</h1>
 <div>
-  <form method="post"> {% csrf_token %}
-    <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_campanha" value="{{pesquisa}}">
-    <input class="botao" type="submit" value="PESQUISAR">
-    <br><label>Pesquise por nome da campanha, nome do usuário ou username</label><br/>
-    <br>
-
+  <form method="post" class="row g-3 w-100">  {% csrf_token %}
+    <div class="input-group mb-3 w-100">
+      <div class="col-8">
+        <input  id="pesquisa " type="text" placeholder="PESQUISAR" class="pergunta form-control form-control-lg" name="pesquisar_campanha" value="{{pesquisa}}">
+      </div>
+      <div class="col-3">
+            <input class="botao btn " type="submit" value="PESQUISAR">
+      </div>
+    </div>
+     <div class="col-auto w-100">
+        <label>Pesquise por nome da campanha, nome do usuário ou username</label>
+      </div>
+      <!-- LEMBRAR DE MEXER NO MAX-WIDTH DA CLASSE "perguntas" -->
   </form>
 </div>
 
@@ -16,14 +24,14 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       {% for c in campanhas %}      
       <div class="col card_campanhas_personagens">
-        <div class="card " style="width: 18rem;">
+        <div class="card mb-2 mt-1"  style="width: 18rem;">
               <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
               <div class="card-body ">
                   <h5 class="card-title">{{c.nome_campanha}}</h5>
           
                   <button type="button" class="btn btn-lg botao" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="{{c.descricao}}">Descrição</button>
       
-                  <p class="card-text">{{c.mestre}}</p>
+                  <p class="card-text"><strong>{{c.mestre}}</strong></p>
                   {% if user.is_authenticated %}
                   {% if c.id in minhas_campanhas %}
                       <a href="{% url 'jogar_campanha' c.id %}" class="btn botao">Jogar</a> 
@@ -31,9 +39,12 @@
                       <a href="{% url 'participar_campanha' c.id %}" class="btn botao">Participar da campanha</a>
                   {% endif %}
                 {% else %}
-                    <a href="{% url 'accounts:cadastro' %}" class="botao">
-                      Cadastre-se para participar da campanha
-                    </a>
+                    <div>
+                      <small> Faça login ou cadastre-se para participar da campanha</small>
+                      <div class="w-100 mb-3"></div>
+                      <a href="{% url 'accounts:cadastro' %}" class="botao ">Cadastre-se</a>
+                    </div>
+                    
                 {% endif %}                  
               </div>  
           </div>
@@ -41,6 +52,7 @@
       {% endfor%}
     </div>
   </div>
+</div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');

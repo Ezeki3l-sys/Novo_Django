@@ -23,6 +23,13 @@
                 <span class="visually-hidden">solicitações não lidas</span>
             </span>
         </a>
+        <a href="{% url 'solicitacoes_jogador' %}"  type="button" class="btn btn-info position-relative" {%if quantidade_solicitacoes_jogador == 0 %}style="display: none;"{% endif %}>
+            Solicitações de participação de campanha
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ quantidade_solicitacoes_jogador }}
+                <span class="visually-hidden">solicitações não lidas</span>
+            </span>
+        </a>        
         </div>
         <div class="coluna">
             <div>
@@ -30,14 +37,14 @@
             </div>
             <div class="ascoisadele card_campanhas_personagens">
                 <div>
-                    <h2>MINHAS CAMPANHAS</h2>
+                    <h2 class="px-3">MINHAS CAMPANHAS</h2>
                     {% for c in campanhas %}      
                         <h2><a href="{% url 'detalhes_campanha' c.id %}">{{c.nome_campanha}}</a></h2>
                     {% endfor%}
                     <a href="{% url 'cadastrar_campanha' %}"><i class="bi bi-plus-circle" ></i></a>
                 </div>
                 <div>
-                    <h2>MEUS PERSONAGENS</h2>
+                    <h2 class="px-3">MEUS PERSONAGENS</h2>
                     {% for p in personagens %}      
                         <h2><a href="{% url 'detalhes_personagem' p.id %}">{{p.nome_personagem}}</a></h2>
                     {% endfor %}

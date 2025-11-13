@@ -9,7 +9,7 @@
     </section>
 {% endfor %}
 {% endif %}
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" class="formulario">
   {% csrf_token %}
   <label>Nome:</label><br>
   <input type="text" name="nome_personagem" value="{{personagem.nome_personagem}}" required><br>

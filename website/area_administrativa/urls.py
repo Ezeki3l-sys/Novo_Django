@@ -30,7 +30,7 @@ urlpatterns = [
     path('jogar/jogador/salvar-anotacao/<int:id>/', views.salvar_anotacao_jogador, name='salvar_anotacao_jogador'),
 
     path('jogar/jogador/salvar-vida/<int:id>/<int:vida>/', views.salvar_vida_jogador, name='salvar_vida_jogador'),
-
+    path('jogador/solicitacoes/', views.solicitacoes_jogador, name='solicitacoes_jogador'),
  
 
 ]

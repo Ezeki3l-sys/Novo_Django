@@ -4,69 +4,70 @@
 {% block 'title' %}Minhas Campanhas::{{ user.username }}{% endblock %}
 
 {% block 'conteudo' %}
-<h1>MINHAS CAMPANHAS</h1>
-<div>
-  <form method="post"> {% csrf_token %}
-    <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_personagem" value="{{pesquisa}}">
-    <input class="botao" type="submit" value="PESQUISAR">
-  </form>
+<div class="container-fluid">
+  <h1 class="titulos_entrada">MINHAS CAMPANHAS</h1>
+  <div>
+    <form method="post"> {% csrf_token %}
+      <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_personagem" value="{{pesquisa}}">
+      <input class="botao" type="submit" value="PESQUISAR">
+    </form>
   </div>
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-mestre-tab" data-bs-toggle="tab" data-bs-target="#nav-mestre" type="button" role="tab" aria-controls="nav-mestre" aria-selected="true">Sou Mestre</button>
-    <button class="nav-link" id="nav-jogador-tab" data-bs-toggle="tab" data-bs-target="#nav-jogador" type="button" role="tab" aria-controls="nav-jogador" aria-selected="false">Sou Jogador</button>
-  </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-mestre" role="tabpanel" aria-labelledby="nav-mestre-tab">
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-mestre-tab" data-bs-toggle="tab" data-bs-target="#nav-mestre" type="button" role="tab" aria-controls="nav-mestre" aria-selected="true">Sou Mestre</button>
+      <button class="nav-link" id="nav-jogador-tab" data-bs-toggle="tab" data-bs-target="#nav-jogador" type="button" role="tab" aria-controls="nav-jogador" aria-selected="false">Sou Jogador</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-mestre" role="tabpanel" aria-labelledby="nav-mestre-tab">
 
-    <div class="container text-center lista_personagens">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">
-        {% for c in campanhas %}      
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-                <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
-                <div class="card-body ">
-                    <h5 class="card-title">{{c.nome_campanha}}</h5>
-                    
-                    <p class="card-text">
-                      <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{c.nome_campanha}}" data-bs-content="{{c.descricao}}">Descrição</button>
-                    </p>
-                    <a href="{% url 'detalhes_campanha' c.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
-                    <a href="{% url 'editar_campanha' c.id %}" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
-                    <a href="{% url 'excluir_campanha' c.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                </div>
-            </div>
+      <div class="container text-center lista_personagens">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">
+          {% for c in campanhas %}      
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+                  <img src="{{c.imagem_de_capa.url}}" class="card-img-top" alt="...">
+                  <div class="card-body ">
+                      <h5 class="card-title">{{c.nome_campanha}}</h5>
+                      
+                      <p class="card-text">
+                        <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{c.nome_campanha}}" data-bs-content="{{c.descricao}}">Descrição</button>
+                      </p>
+                      <a href="{% url 'detalhes_campanha' c.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
+                      <a href="{% url 'editar_campanha' c.id %}" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                      <a href="{% url 'excluir_campanha' c.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                  </div>
+              </div>
+          </div>
+          {% endfor%}
         </div>
-        {% endfor%}
-      </div>
-      <a style="margin-top: 20px;" href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
-    <div class="container text-center lista_personagens">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">    
-        {% for cj in campanhas_jogador %}      
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-                <img src="{{cj.campanha.imagem_de_capa.url}}" class="card-img-top" alt="...">
-                <div class="card-body ">
-                    <h5 class="card-title">{{cj.campanha.nome_campanha}}</h5>
-                    
-                    <p class="card-text">
-                      <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{cj.campanha.nome_campanha}}" data-bs-content="{{cj.campanha.descricao}}">Descrição</button>
-                    </p>
-                    <a href="{% url 'jogar_campanha' cj.campanha.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
-                </div>
-            </div>
-        </div>
-        {% endfor%}
+        <a style="margin-top: 20px;" href="{% url 'cadastrar_campanha' %}" class="botao">Cadastrar nova campanha</a>
       </div>
     </div>
+    <div class="tab-pane fade" id="nav-jogador" role="tabpanel" aria-labelledby="nav-jogador-tab">
+      <div class="container text-center lista_personagens">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card_campanhas_personagens">    
+          {% for cj in campanhas_jogador %}      
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+                  <img src="{{cj.campanha.imagem_de_capa.url}}" class="card-img-top" alt="...">
+                  <div class="card-body ">
+                      <h5 class="card-title">{{cj.campanha.nome_campanha}}</h5>
+                      
+                      <p class="card-text">
+                        <button type="button" class="btn btn-lg" data-bs-toggle="popover" data-bs-title="História de {{cj.campanha.nome_campanha}}" data-bs-content="{{cj.campanha.descricao}}">Descrição</button>
+                      </p>
+                      <a href="{% url 'jogar_campanha' cj.campanha.id %}" class="btn btn-primary"><i class="bi bi-play"></i></a>
+                  </div>
+              </div>
+          </div>
+          {% endfor%}
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>
-
-
 <script>
   const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
   const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))

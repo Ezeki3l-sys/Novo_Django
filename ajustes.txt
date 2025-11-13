@@ -1,3 +1,8 @@
-[] - Revisar o carrossel da home, ele não roda automaticamente pela primeira vez
-Colocar imagem default para usuário e campanha
-vida máxima e atual no jogar index
+[]Colocar imagem default para usuário e campanha
+[]vida máxima e atual no jogar index
+[]Tela de cadastrar usuário - trazer o efeito de avatar alterar automaticamente quando o usuario subir a imagem (tem o efeito na tela editar perfil)
+[] Editar Perfil - Ajustar a área de imagem (centralizar) quando carregado uma nova imagem para o avatar do usuario
+[] Colocar classes na página de personagem para centralizar os cards
+[] Revisar o tamanho da descrção do profile do usuário
+[] Trazer uma dinâmica no roteiro da apresentação, convidando umas duas pessoas para mostrar as funcionalidades do site ao vivo
+[] Caso um usuário tente entrar em uma campanha sem um personagem, tem que impedir ele

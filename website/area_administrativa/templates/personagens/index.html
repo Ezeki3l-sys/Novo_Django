@@ -4,7 +4,7 @@
 
 {% block 'title' %}Meus Personagens::{{ user.username }}{% endblock %}
 {% block 'conteudo' %}
-<h1>MEUS PERSONAGENS</h1>
+<h1 class="titulos_entrada">MEUS PERSONAGENS</h1>
 <div>
   <form method="post"> {% csrf_token %}
     <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_personagem" value="{{pesquisa}}">

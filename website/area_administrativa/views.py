@@ -20,7 +20,8 @@ def home(request):
     meus_personagens = Personagem.objects.filter(usuario=request.user).order_by('nome_personagem')
     minhas_campanhas = Campanha.objects.filter(mestre=request.user).order_by('nome_campanha')
     quantidade_solicitacoes = PedidoParticipacaoCampanha.objects.filter(mestre=request.user).filter(status='P').count()
-    return render(request, "index-area-restrita.html", {'personagens': meus_personagens,'campanhas': minhas_campanhas,'quantidade_solicitacoes':quantidade_solicitacoes})
+    quantidade_solicitacoes_jogador = PedidoParticipacaoCampanha.objects.filter(personagem__usuario=request.user).count()
+    return render(request, "index-area-restrita.html", {'personagens': meus_personagens,'campanhas': minhas_campanhas,'quantidade_solicitacoes':quantidade_solicitacoes, 'quantidade_solicitacoes_jogador': quantidade_solicitacoes_jogador})
 
 @login_required
 def editar_perfil(request, id):
@@ -126,9 +127,7 @@ def detalhes_campanha(request, id):
     minhas_campanhas_json = json.dumps(list(minhas_campanhas_mestre), cls=DjangoJSONEncoder)
    
     #print(minhas_campanhas_mestre[0].get('anotacoes'))
-    #minhas_anotacoes = json.dumps(list(minhas_campanhas_mestre[0].get('anotacoes')), cls=DjangoJSONEncoder)
     minhas_anotacoes =json.dumps(minhas_campanhas_mestre[0].get('anotacoes'), cls=DjangoJSONEncoder)
-    #print(minhas_anotacoes[0])
     return render(request, 'mestre/detalhes_campanha.html', {'campanha': campanha,'jogadores': jogadores, 'minhas_campanhas_json': minhas_campanhas_json, 'minhas_anotacoes': minhas_anotacoes})
 
 @login_required
@@ -321,6 +320,11 @@ def detalhes(request):
 def sessoes(request):
     return render(request, 'mestres/sessoes .html')
 
+def solicitacoes_jogador(request):
+    solicitacoes = PedidoParticipacaoCampanha.objects.filter(usuario_solicitante=request.user)
+    print(solicitacoes)
+
+    return render(request, 'jogador/lista-solicitacao.html' , {'solicitacoes':solicitacoes})
 
 def jogadores(request):
     return render(request, 'jogadores/index.html')
