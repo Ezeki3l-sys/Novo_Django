@@ -2,20 +2,14 @@
 {% load static %}
 {% block 'conteudo' %}
 <div class="container">
-<h1>EXPLORE E BUSQUE POR CAMPANHAS</h1>
+<h1 class="titulos_entrada">EXPLORE E BUSQUE POR CAMPANHAS</h1>
 <div>
-  <form method="post" class="row g-3 w-100">  {% csrf_token %}
-    <div class="input-group mb-3 w-100">
-      <div class="col-8">
-        <input  id="pesquisa " type="text" placeholder="PESQUISAR" class="pergunta form-control form-control-lg" name="pesquisar_campanha" value="{{pesquisa}}">
-      </div>
-      <div class="col-3">
-            <input class="botao btn " type="submit" value="PESQUISAR">
-      </div>
+  <form method="post">  {% csrf_token %}
+    <input  id="pesquisa " type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_campanha" value="{{pesquisa}}">
+    <input class="botao" style="margin-top: 15px;" type="submit" value="PESQUISAR">
+    <div class="col-auto w-100" style="margin-bottom: 40px;">
+      <label>Pesquise por nome da campanha, nome do usuário ou username</label>
     </div>
-     <div class="col-auto w-100">
-        <label>Pesquise por nome da campanha, nome do usuário ou username</label>
-      </div>
       <!-- LEMBRAR DE MEXER NO MAX-WIDTH DA CLASSE "perguntas" -->
   </form>
 </div>
@@ -52,6 +46,7 @@
       {% endfor%}
     </div>
   </div>
+</div>
 </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

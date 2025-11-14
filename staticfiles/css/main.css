@@ -1,0 +1,472 @@
+/* --- Esse é o body das páginas. As cores são definidas aqui --- */
+
+body{
+    background-color: var(--cor-fundo);
+    background-repeat: repeat;
+    height: 100%;
+    margin: 0;
+    font-family: 'Arvo', 'Crete Round', 'PT Serif', 'Volkhov', serif;
+    color: var(--cor-fundo);
+    
+}
+
+/* --- Toda essa parte engloba o nosso menu --- */
+nav{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 5px var(--cor-destaque) solid;
+}
+.entrada{
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+}
+.entrada h2{
+    font-size: xx-large;
+}
+.entrada p{
+    font-size: x-large;
+    width: 60%;
+}
+.carousel-img {
+    object-fit: cover;
+    height: 80vh;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .carousel-img {
+        height: 50vh;
+    }
+}
+.titulos_entrada{
+    margin-left: 40%;
+    margin-right: 40%;
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto);
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+@media (max-width: 1000px){
+    .titulos_entrada{
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+.oqueRPG{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+    font-size: x-large;
+    gap: 40px;
+    margin-bottom: 45px;
+
+}
+.oqueRPG img{
+    width: 600px;
+}
+.fichainfos{
+    display: flex;
+    flex-direction: column;
+
+}
+.fichainfos p{
+    padding: 20px;
+}
+@media (max-width: 1000px){
+    .entrada{
+        flex-direction: column;
+
+    }
+    .oqueRPG{
+        flex-direction: column;
+    }
+    .oqueRPG p{
+        width: 100%;
+        font-size: large;
+    }
+    .oqueRPG img{
+        width: 100%;
+    }
+}
+@media (min-width: 1001px) and (max-width: 1200px){
+    .entrada{
+        flex-direction: column;
+
+    }
+    .oqueRPG p{
+        width: 50%;
+        font-size: x-large;
+    }
+    .oqueRPG img{
+        width: 50%;
+    }
+}
+ul{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    gap: 50px;
+    font-size: x-large;
+    padding: 0;
+}
+.dado20{
+    width: 70px;
+}
+.grimoriobonito{
+    width: 70px;
+}
+
+/* Essa parte serve para o menu mobile (funciona ao clicar no grimório) */
+@media (max-width: 2000px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--cor-fundo);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+       
+    }
+   
+    .nav-links.active {
+        display: flex;
+        z-index: 999;
+    }
+    .menu-icon {
+        display: block;    
+    }
+ }
+
+
+
+
+ /* Parte da área restrita */
+ .card img{
+    width: 286px;
+    height: 171px;
+ }
+ #dados img:hover {
+    filter: brightness(1.5);
+    border: 2px solid rgb(255, 255, 255);
+    
+}
+#dados img:active {
+    filter: brightness(2.5);
+    border: 5px solid rgb(255, 255, 255);
+    
+}
+ .perfil{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+ }
+.perfil img{
+    border: 3px solid var(--cor-destaque);
+    border-radius: 100% ;
+    width: 300px;
+    
+}
+#corovenha{
+    background-color: transparent;
+    color: var(--cor-texto);
+    border-color: var(--cor-destaque);
+    font-size: x-large;
+    border-radius: 20px;
+}
+.coluna{
+    display: flex;
+    flex-direction: column;
+}
+.ascoisadele{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 30px;
+}
+.ascoisadele div{
+    text-align: center;
+}
+i.bi{
+    font-size: 2rem; 
+    color: var(--cor-texto);
+    cursor: pointer;
+}
+@media (max-width: 1000px){
+    .perfil{
+        flex-direction: column;
+        align-items: center;
+    }
+    #corovenha{
+        width: 100%;
+    }
+}
+@media (min-width: 1001px) and (max-width: 1450px){
+    .perfil{
+        flex-direction: column;
+        align-items: center;
+    }
+    #corovenha{
+        width: 100%;
+    }
+}
+
+
+/* Essa parte serve para o menu mobile (funciona ao clicar no grimório) */
+ /* Fim da área restrita */
+
+ /* Meus Personagens */
+.container{
+    align-items: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 3px solid var(--cor-destaque);
+    border-radius: 40px;
+    padding: 20px;
+  }
+.pergunta{
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid var(--cor-destaque);
+    margin: 10px;
+    color: var(--cor-texto);
+    max-width: fit-content;
+    justify-content: center;
+}
+.pergunta_img{
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid var(--cor-destaque);
+    margin: 10px;
+    color: var(--cor-texto);
+    width: 370px;
+}
+@media (max-width: 420px){
+    .pergunta_img{
+        width: 300px;
+    }
+}
+.lista_personagens .card-body{
+    background-color: var(--cor-destaque);
+}
+.personagem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.personagem img{
+    border: 3px solid var(--cor-destaque);
+    border-radius: 40px ;
+    width: 400px;
+}
+.numeral{
+    color: var(--cor-texto);
+}
+ /* Fim Meus Personagens */
+
+ /* Minhas Campanhas */
+ .geral{
+    display: flex;
+    gap: 50px;
+ }
+ @media (max-width: 1000px){
+    .geral{
+    gap: 0px;
+ }
+}
+ #botoes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+ }
+ .campanha{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    
+ }
+ .campanha img{
+    border: 3px solid var(--cor-destaque);
+    border-radius: 40px ;
+    width: 400px;
+}
+@media only screen and (max-width: 450px) {
+    .campanha img{
+        max-width: 350px;
+    }
+}
+#container{
+    color: var(--cor-texto);
+    border: var(--cor-destaque) solid 2px ;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+#container img{
+    background-color: var(--cor-destaque);
+    border-radius: 10px;
+    margin: 0;
+}
+ /* Minhas Campanhas */
+
+
+
+
+.cenas_descricao{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 250px;
+}
+@media only screen and (max-width: 600px) {
+    .cenas_descricao{
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        align-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 100px;
+    }
+}
+.borda_cenas_descricao{
+    border: 5px solid var(--cor-destaque);
+    padding: 10px;  
+    color: red;
+}
+.sessoes{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.borda_sessoes{
+    border: 3px solid var(--cor-destaque);
+}
+
+.total_sessoes_cenas{
+    padding: 50px;
+}
+@media (max-width: 410px){
+    .total_sessoes_cenas{
+        margin-left: 10px;
+    }
+}
+
+
+/* --- Lista de Jogadores e Personagens --- */
+
+.botao{
+    color: var(--cor-texto);
+    background-color: var(--cor-destaque);
+    border: solid 1px;
+    border-color: var(--cor-texto);
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 5px 15px;
+    margin: 0px;
+    cursor: pointer;
+    --bs-btn-hover-bg: var(--cor-texto);
+}
+
+/* --- Classes Gerais e Funcionalidades Adicionais --- */
+
+.pagina_atual{
+    text-decoration: underline var(--cor-destaque);
+}
+h1{
+    text-align: center;
+    font-size: x-large;
+}
+h2{
+    text-align: center;
+    font-size: x-large;
+    color: var(--cor-destaque);
+}
+h3{
+    text-align: center;
+    font-size: 20px;
+    color: var(--cor-destaque)
+}
+p{
+    text-align: center;
+    font-size: larger;
+    color: var(--cor-texto)
+}
+footer{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    border-top: 5px var(--cor-destaque) solid;
+    padding: 20px 0px;
+}
+a, .nav-link{
+    color: var(--cor-texto);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+a:hover, a:active, .nav-link:hover, .nav-link:active{
+    color: var(--cor-fundo);
+    background-color: var(--cor-destaque);
+    border-radius: 10px;
+}
+.letra_grande{
+    font-size: 30px;
+    color: var(--cor-destaque);
+}
+.letra_pequena{
+    color: var(--cor-texto);
+}
+
+.botoes{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.card_campanhas_personagens{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    gap: 30px;
+}
+@media (max-width: 575px){
+    .card_campanhas_personagens{
+        margin: 0;
+        gap: 0;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+}
+label{
+    color: var(--cor-texto);    
+}
+
+span{
+    color: var(--cor-texto);
+}
+@media (max-width: 1020px){
+    .campanha_coluna_ou_linha{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}

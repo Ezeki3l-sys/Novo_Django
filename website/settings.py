@@ -122,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE =  config('LANGUAGE_CODE')
+LANGUAGE_CODE = config('LANGUAGE_CODE')
 
 TIME_ZONE = config('TIME_ZONE')
 
@@ -138,6 +138,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'website/static'),)
 #STATIC_ROOT = os.path.join('static')
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+
 
 
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -160,3 +161,4 @@ MESSAGE_TAGS = {
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'area_restrita'
 LOGOUT_REDIRECT_URL = 'login'
+

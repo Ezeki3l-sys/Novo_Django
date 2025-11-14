@@ -4,18 +4,22 @@
 
 {% block 'title' %}Meus Personagens::{{ user.username }}{% endblock %}
 {% block 'conteudo' %}
+<div class="container">
 <h1 class="titulos_entrada">MEUS PERSONAGENS</h1>
-<div>
+<div style="margin-bottom: 50px;">
   <form method="post"> {% csrf_token %}
     <input  id="pesquisa" type="text" placeholder="PESQUISAR" class="pergunta" name="pesquisar_personagem" value="{{pesquisa}}">
     <input class="botao" type="submit" value="PESQUISAR">
+    <div class="col-auto w-100" style="margin-bottom: 40px;">
+      <label>Pesquise por nome de personagens que já criou</label>
+    </div>
   </form>
-  </div>
+</div>
 <div class="container text-center lista_personagens">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     {% for p in personagens %}  
-    <div class="col">
-      <div class="card card_campanhas_personagens" style="width: 18rem;">
+    <div class="col card_campanhas_personagens">
+      <div class="card mb-3 mt-2" style="width: 18rem;">
             <img src="{{p.avatar_personagem.url}}" class="card-img-top" alt="...">
             <div class="card-body ">
                 <h5 class="card-title">{{p.nome_personagem}}</h5>
@@ -30,9 +34,9 @@
     </div>
     {% endfor%}
   </div>
-  <a style="margin-top: 20px;" href="{% url 'cadastrar_personagem' %}" class="botao">Cadastrar novo personagem</a>
+  <a href="{% url 'cadastrar_personagem' %}" class="botao">Cadastrar novo personagem</a>
 </div>
-
+</div>
 
 <script>
   const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
