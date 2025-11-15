@@ -2,6 +2,7 @@
 {% load static %}
 {% block 'conteudo' %}
 {% block 'title' %}Seu Perfil{% endblock %}
+<div class="container">
     <h2 class="titulos_entrada">Perfil de {{request.user}}</h2>
     <main class="perfil">
         <div>
@@ -32,10 +33,9 @@
         </a>        
         </div>
         <div class="coluna">
-            <div>
-                <textarea style="overflow:hidden;" class="descricao_usuario"  name="cunserva" id="corovenha" cols="80" rows="10" readonly disabled>{{ user.bio }}</textarea>
-            </div>
-            <div class="ascoisadele card_campanhas_personagens">
+                <textarea style="width: min-content;" class="descricao_usuario" name="cunserva" id="corovenha" readonly disabled>{{ user.bio }}</textarea>
+
+            <div class="ascoisadele">
                 <div>
                     <h2 class="px-3">MINHAS CAMPANHAS</h2>
                     {% for c in campanhas %}      
@@ -53,7 +53,7 @@
             </div>
         </div>
     </main>
-    
+</div>
 
     
 

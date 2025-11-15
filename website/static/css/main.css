@@ -170,6 +170,22 @@ ul{
     width: 300px;
     
 }
+.descricao_usuario {
+    width: 100%;
+    max-width: 600px; 
+    min-height: 150px;
+    resize: vertical; 
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+@media (max-width: 768px) {
+    .descricao_usuario {
+        max-width: 100%;
+        font-size: 0.9rem;
+    }
+}
+
+
 #corovenha{
     background-color: transparent;
     color: var(--cor-texto);
@@ -189,6 +205,14 @@ ul{
 }
 .ascoisadele div{
     text-align: center;
+}
+/* por algum motivo esse lixo não funciona, ver depois */
+@media (max-width: 500px){
+    .ascoisadele{
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
 }
 i.bi{
     font-size: 2rem; 
@@ -469,3 +493,92 @@ span{
         flex-direction: column;
     }
 }
+
+
+/* 
+ Parte da área restrita
+ .card img{
+    width: 286px;
+    height: 171px;
+ }
+ #dados img:hover {
+    filter: brightness(1.5);
+    border: 2px solid rgb(255, 255, 255);
+    
+}
+#dados img:active {
+    filter: brightness(2.5);
+    border: 5px solid rgb(255, 255, 255);
+    
+}
+ .perfil{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+ }
+.perfil img{
+    border: 3px solid var(--cor-destaque);
+    border-radius: 100% ;
+    width: 300px;
+    
+}
+.descricao_usuario {
+    width: 100%;
+    max-width: 600px; 
+    min-height: 150px;
+    resize: vertical; 
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+@media (max-width: 768px) {
+    .descricao_usuario {
+        max-width: 100%;
+        font-size: 0.9rem;
+    }
+}
+
+
+#corovenha{
+    background-color: transparent;
+    color: var(--cor-texto);
+    border-color: var(--cor-destaque);
+    font-size: x-large;
+    border-radius: 20px;
+}
+.coluna{
+    display: flex;
+    flex-direction: column;
+}
+.ascoisadele{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 30px;
+}
+.ascoisadele div{
+    text-align: center;
+}
+i.bi{
+    font-size: 2rem; 
+    color: var(--cor-texto);
+    cursor: pointer;
+}
+@media (max-width: 1000px){
+    .perfil{
+        flex-direction: column;
+        align-items: center;
+    }
+    #corovenha{
+        width: 100%;
+    }
+}
+@media (min-width: 1001px) and (max-width: 1450px){
+    .perfil{
+        flex-direction: column;
+        align-items: center;
+    }
+    #corovenha{
+        width: 100%;
+    }
+}
+ */
